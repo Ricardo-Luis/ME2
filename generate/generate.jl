@@ -58,7 +58,7 @@ md"""
 TITLE = "Máquinas Elétricas II"
 
 # ╔═╡ a0057e4c-0bcf-4970-8a2b-0412ad5af510
-SUBTITLE = "ME corrente contínua & ME síncrona 3~"
+SUBTITLE = "Interactive Pluto.jl notebooks"
 
 # ╔═╡ 4be56e57-fea0-4fbe-9659-44bed594b1b2
 INSTITUTION = "DEEEA·LEE"
@@ -259,7 +259,7 @@ function sidebar_code(book_model)
     <a href="https://julialang.org/">		
     <img src="$(SLASH_PREPATH)/assets/julia-logo.svg" style="margin-left:1em; width: 80px; height: auto; vertical-align: middle; display: inline">
     </a>
-    <div style="font-weight: bold; margin-bottom: 0.5em"><a >$(TERM)</a><span style="opacity: 0.6;"> | $(INSTITUTION)</span></div>
+    <div style="font-weight: bold; margin-bottom: 0.5em; opacity: 0.6" $(TERM) | $(INSTITUTION)</div>
     <h1><a href="https://www.isel.pt/lee/maquinas-eletricas-ii">$(TITLE)</a></h1>
     <h2>$(SUBTITLE)</h2>
     <div style="line-height:18px; font-size: 15px; opacity: 0.85"><!--by--> $(INSTRUCTORS)</div>
