@@ -55,16 +55,16 @@ md"""
 """
 
 # ╔═╡ 2bee2fc7-3322-457f-a835-028c80eaf059
-TITLE = "Máquinas Elétricas 2"
+TITLE = "Máquinas Elétricas 2 (ME 2)"
 
 # ╔═╡ a0057e4c-0bcf-4970-8a2b-0412ad5af510
 SUBTITLE = "ME corrente contínua e ME síncronas 3~"
 
 # ╔═╡ 4be56e57-fea0-4fbe-9659-44bed594b1b2
-INSTITUTION = "LEE"
+INSTITUTION = "ISEL"
 
 # ╔═╡ ab7186a4-2287-41da-a939-70f142bfeacd
-TERM = "ISEL"
+TERM = "2021/2022"
 
 # ╔═╡ 83130e69-9b67-44b5-ad32-500162abc0d2
 md"""
@@ -210,8 +210,8 @@ end
 
 # ╔═╡ 3e93e57c-3660-416f-9874-d43abf99e60e
 INSTRUCTORS = [
-	(name = "Ricardo Luís", href = ""),
-	(name = "", href = "")
+	(name = "Ricardo Luís", href = "")#,
+	#(name = "", href = "")
 ] |> instructors
 
 # ╔═╡ feaed8af-05d0-4b80-9f69-8f827f9343a8
