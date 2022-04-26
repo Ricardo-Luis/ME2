@@ -55,7 +55,7 @@ md"""
 """
 
 # ╔═╡ 2bee2fc7-3322-457f-a835-028c80eaf059
-TITLE = "ME2: Máquinas Elétricas II"
+TITLE = "Máquinas Elétricas II"
 
 # ╔═╡ a0057e4c-0bcf-4970-8a2b-0412ad5af510
 SUBTITLE = "ME corrente contínua & ME síncrona 3~"
@@ -64,7 +64,7 @@ SUBTITLE = "ME corrente contínua & ME síncrona 3~"
 INSTITUTION = "DEEEA, LEE"
 
 # ╔═╡ ab7186a4-2287-41da-a939-70f142bfeacd
-TERM = "2022-2023"
+TERM = "2022·2023"
 
 # ╔═╡ 83130e69-9b67-44b5-ad32-500162abc0d2
 md"""
