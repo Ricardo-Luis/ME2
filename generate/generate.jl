@@ -55,13 +55,13 @@ md"""
 """
 
 # ╔═╡ 2bee2fc7-3322-457f-a835-028c80eaf059
-TITLE = "ME2: Máquinas Elétricas 2"
+TITLE = "ME2: Máquinas Elétricas II"
 
 # ╔═╡ a0057e4c-0bcf-4970-8a2b-0412ad5af510
-SUBTITLE = "ME corrente contínua e ME síncrona 3~"
+SUBTITLE = "ME corrente contínua & ME síncrona 3~"
 
 # ╔═╡ 4be56e57-fea0-4fbe-9659-44bed594b1b2
-INSTITUTION = "ISEL"
+INSTITUTION = "DEEEA|LEE"
 
 # ╔═╡ ab7186a4-2287-41da-a939-70f142bfeacd
 TERM = "2021/2022"
@@ -253,8 +253,8 @@ function sidebar_code(book_model)
     <div class="container sidebar-sticky">
     <div class="sidebar-about">
     <br>
-    <img src="$(SLASH_PREPATH)/isel_logo.png" style="width: 170px; height: auto; vertical-align: middle">
-    <img src="$(SLASH_PREPATH)/assets/julia-logo.svg" style="margin-left:1em; width: 80px; height: auto; vertical-align: middle">
+    <img src="$(SLASH_PREPATH)/isel_logo.png" style="width: 170px; height: auto; vertical-align: middle; display: inline">
+    <img src="$(SLASH_PREPATH)/assets/julia-logo.svg" style="margin-left:1em; width: 80px; height: auto; vertical-align: middle; display: inline">
     <div style="font-weight: bold; margin-bottom: 0.5em"><a href="$(SLASH_PREPATH)/semesters/">$(TERM)</a> <span style="opacity: 0.6;">| $(INSTITUTION)</span></div>
     <h1><a href="$(SLASH_PREPATH)/">$(TITLE)</a></h1>
     <h2>$(SUBTITLE)</h2>
