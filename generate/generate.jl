@@ -55,16 +55,16 @@ md"""
 """
 
 # ╔═╡ 2bee2fc7-3322-457f-a835-028c80eaf059
-TITLE = "A Great Course"
+TITLE = "Máquinas Elétricas 2"
 
 # ╔═╡ a0057e4c-0bcf-4970-8a2b-0412ad5af510
-SUBTITLE = "Content and Code"
+SUBTITLE = "ME corrente contínua e ME síncronas 3~"
 
 # ╔═╡ 4be56e57-fea0-4fbe-9659-44bed594b1b2
-INSTITUTION = "University of Greatness"
+INSTITUTION = "LEE"
 
 # ╔═╡ ab7186a4-2287-41da-a939-70f142bfeacd
-TERM = "Spring 2022"
+TERM = "ISEL"
 
 # ╔═╡ 83130e69-9b67-44b5-ad32-500162abc0d2
 md"""
@@ -210,8 +210,8 @@ end
 
 # ╔═╡ 3e93e57c-3660-416f-9874-d43abf99e60e
 INSTRUCTORS = [
-	(name = "Person 1", href = ""),
-	(name = "Person 2", href = "")
+	(name = "Ricardo Luís", href = ""),
+	(name = "", href = "")
 ] |> instructors
 
 # ╔═╡ feaed8af-05d0-4b80-9f69-8f827f9343a8
