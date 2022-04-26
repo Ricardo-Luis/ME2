@@ -106,7 +106,7 @@ pages = [
 SLASH_PREPATH = !isempty(PREPATH) ? "/" * PREPATH : ""
 
 # ╔═╡ 02e00e09-76a5-4f38-8557-4d9caf280b4c
-homepage = (page = "/index.html", href = "$SLASH_PREPATH/", title = "Welcome")
+homepage = (page = "/index.html", href = "$SLASH_PREPATH/", title = "Bem-vindo(a)")
 
 # ╔═╡ d83ee9b9-d255-4217-a776-3b0f4f168c8f
 @bind regenerate Button("Regenerate!")
@@ -268,7 +268,7 @@ function sidebar_code(book_model)
     <br>
     $(map(enumerate(book_model)) do (chapter_number, chap)
 		@htl("""
-		<div class="course-section">Module $(chapter_number): $(chap.title)</div>
+		<div class="course-section"><!--Module--> $(chapter_number): $(chap.title)</div>
 		
 		$(map(enumerate(chap.contents)) do (section_number, section)
 
