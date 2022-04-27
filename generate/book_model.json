@@ -44,8 +44,32 @@
         "title": "Máquina elétrica síncrona trifásica",
         "contents": [
             {
-                "name": "The Newton Method",
-                "notebook_path": "notebooks/week3/newton_method.jl",
+                "name": "[TP] Alternador em regime isolado, exercício 1",
+                "notebook_path": "notebooks/AC/me2-tp-maq-ac-ex1.jl",
+                "video_id": "",
+                "preview_image_url": ""
+            },
+	    {
+                "name": "[TP] Alternador, curvas características, exercício 2",
+                "notebook_path": "notebooks/AC/me2-tp-maq-ac-ex2.jl",
+                "video_id": "",
+                "preview_image_url": ""
+            },
+	    {
+                "name": "[T] Curvas de Mordey",
+                "notebook_path": "notebooks/AC/me2-t-maq-ac-curvasV.jl",
+                "video_id": "",
+                "preview_image_url": ""
+            },
+	    {
+                "name": "[TP] Motor polos salientes, exercício 8",
+                "notebook_path": "notebooks/AC/me2-tp-maq-ac-ex8.jl",
+                "video_id": "",
+                "preview_image_url": ""
+            },
+	    {
+                "name": "[TP] Método dos áreas, exercício 11",
+                "notebook_path": "notebooks/AC/me2-tp-maq-ac-ex11.jl",
                 "video_id": "",
                 "preview_image_url": ""
             }
