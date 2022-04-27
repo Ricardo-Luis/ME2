@@ -3,16 +3,40 @@
         "title": "Máquina elétrica de corrente contínua",
         "contents": [
             {
-                "name": "Julia Basics",
-                "notebook_path": "notebooks/basic_syntax.jl",
+                "name": "[TP] Geradores de corrente contínua, exercício 2",
+                "notebook_path": "notebooks/DC/me2-tp-maq-dc-ex2.jl",
                 "video_id": "",
                 "preview_image_url": ""
             },
 	   {
-                "name": "GitHub & Open Source Software",
-                "notebook_path": "notebooks/week12/how_to_collaborate_on_software.jl",
-                "video_id": "7N9Vvc8amGM",
-                "preview_image_url": "https://user-images.githubusercontent.com/6933510/136199704-ba6d0586-34bf-490c-8fd0-6959ab42cd23.png"
+                "name": "[TP] Gerador de excitação composta, exercício 4",
+                "notebook_path": "notebooks/DC/me2-tp-maq-dc-ex4.jl",
+                "video_id": "",
+                "preview_image_url": ""
+            },
+	    {
+                "name": "[TP] Associação em paralelo de geradores, exercício 6",
+                "notebook_path": "notebooks/DC/me2-tp-maq-dc-ex6.jl",
+                "video_id": "",
+                "preview_image_url": ""
+            },
+	    {
+                "name": "[TP] Motores de corrente contínua, exercício 7",
+                "notebook_path": "notebooks/DC/me2-tp-maq-dc-ex7.jl",
+                "video_id": "",
+                "preview_image_url": ""
+            },
+	    {
+                "name": "[P] Ensaio back-to-back",
+                "notebook_path": "notebooks/DC/me2-p-maq-dc-back2back.jl",
+                "video_id": "",
+                "preview_image_url": ""
+            },
+	    {
+                "name": "[TP] Motor série, exercício 9",
+                "notebook_path": "notebooks/DC/me2-tp-maq-dc-ex9.jl",
+                "video_id": "",
+                "preview_image_url": ""
             }
         ]
     },
