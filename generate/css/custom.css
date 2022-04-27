@@ -97,7 +97,7 @@ pre.code-output {
     border-bottom: none !important;
     font-size: 0.8em;
     color: White;
-    font-style: italic;
+    font-style: normal;
     font-weight: bold;
     margin-top: -1em;
 }
