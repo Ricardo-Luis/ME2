@@ -124,7 +124,7 @@ pre.code-output {
 }
 
 .sidebar-nav .course-section {
-    font-style: italic;
+    font-style: normal;
     display: flex;
     align-items: center;
     color: #d9a200;
