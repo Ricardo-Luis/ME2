@@ -282,7 +282,7 @@ function sidebar_code(book_model)
 			notebook_id = flatten_path(without_pluto_file_extension(section.notebook_path))
 			
 		    @htl("""
-		    <a class="sidebar-nav-item {{ispage /$notebook_name/}}active{{end}}" href="$(SLASH_PREPATH)/$notebook_id/"><b>$(chapter_number).$(section_number)</b> - <em>$(section.name)</em></a>
+		    <a class="sidebar-nav-item {{ispage /$notebook_name/}}active{{end}}" href="$(SLASH_PREPATH)/$notebook_id/"><b>$(chapter_number).$(section_number)</b> - <strong>$(section.name)</strong></a>
 		    """)
 		end)
 		""")
