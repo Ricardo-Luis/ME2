@@ -97,7 +97,7 @@ pre.code-output {
     border-bottom: none !important;
     font-size: 0.8em;
     color: White;
-    font-style: normal;
+    font-style: italic;
     font-weight: bold;
     margin-top: -1em;
 }
@@ -124,7 +124,7 @@ pre.code-output {
 }
 
 .sidebar-nav .course-section {
-    font-style: normal;
+    font-style: italic;
     display: flex;
     align-items: center;
     color: #d9a200;
