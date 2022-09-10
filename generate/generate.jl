@@ -98,7 +98,7 @@ show_section_number = false
 pages = [
 	#(page = "/logistics/", title = "Class Logistics")
 	#(page = "/syllabus/", title = "Syllabus")
-	(page = "/installation/", title = "Instalação de software),
+	(page = "/installation/", title = "Instalação de software"),
 	(page = "/cheatsheets/", title = "Consulta rápida")
 ]
 
