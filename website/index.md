@@ -18,10 +18,9 @@ Ricardo Luís, PhD
 
 Os *notebooks* deste *website* e respetivo repositório do GitHub, são disponibilizados nos termos da licença *copyleft*:
 
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licença Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
-
+<
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licença Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />O trabalho <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">Documentos computacionais sobre Máquinas Elétricas II</span> de <a xmlns:cc="http://creativecommons.org/ns#" href="https://ricardo-luis.github.io/me2" property="cc:attributionName" rel="cc:attributionURL">Ricardo Luís</a> está licenciado com uma Licença <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons - Atribuição-CompartilhaIgual 4.0 Internacional</a>
-
+>
 
 Para citar o conteúdo deste *website* ou os *notebooks*, por favor, utilize o seguinte texto:
 
