@@ -28,7 +28,7 @@
             },
 	    {
                 "name": "[P] Ensaio back-to-back",
-                "notebook_path": "notebooks/DC/me2-p-maq-dc-back2back.jl",
+                "notebook_path": "notebooks/DC/back2backlab.jl",
                 "video_id": "",
                 "preview_image_url": ""
             },
