@@ -1,12 +1,15 @@
-# Syllabus
+# Agradecimentos
 
-## Course Links
 
-[official Canvas course page](https://canvas.xxx.xx/courses/xxxxx)
+Agradeço aos amigos e colegas do Grupo Disciplinar de Máquinas Elétricas do ISEL\DEEEA, pelas discussões e ideias para a realização de documentos computacionais como material de apoio ao ensino da unidade curricular de Máquinas Elétricas II.
+\
+\
+\
 
-## Class schedule
+# Acknowledgements
 
-| Lecture | Title | Date | Lecturer | Notebooks | Reading |
-|:-------:|:-----:|:----:|:--------:|:---------:|:-------:|
-| 1 | Introduction      | Feb  7, 2022 | Person 1  | [basic Julia](/notebooks/notebooks_basic_syntax), [Open source](/notebooks/notebooks_week12_how_to_collaborate_on_software) | Ch. 1 & 2 |
-| 2 | Newton method     | Feb 10, 2022 | Person 2  | [Newton method](/notebooks/notebooks_week3_newton_method) | Ch. 3 |
+
+The design of this website is based on Computational Thinking, a live online Julia/Pluto textbook. (computationalthinking.mit.edu) These online lectures using Pluto notebooks have inspired me to seek and start developing a notebook collection on electrical machines for electrical engineering courses. Thanks also to Fabian Greimel, for this template website version for hosting and publishing the Pluto notebooks, which is simple and easy to maintain. 
+
+
+My gratitude to the creators of Pluto, Fons van der Plas and Mikołaj Bochenski and the entire team of contributors, who due to the reactive characteristic of their notebook environment for scientific programming language Julia, made me use this type of computational documents for teaching and research.
