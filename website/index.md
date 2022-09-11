@@ -10,10 +10,13 @@ Estes *notebooks* são desenvolvidos utilizando o **Pluto.jl** que é um ambient
 
 \
 \
+\
 
 # Autor
 
 Ricardo Luís, PhD
+
+\
 \
 \
 
@@ -22,15 +25,14 @@ Ricardo Luís, PhD
 Os *notebooks* deste *website* e respetivo repositório do GitHub, são disponibilizados nos termos da licença:
 [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/deed.pt).
 
-[![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/deed.pt)
+<a href="http://creativecommons.org/licenses/by-sa/4.0/deed.pt"><img src="https://licensebuttons.net/l/by-sa/4.0/88x31.png" alt="CC BY-SA 4.0" style="width: 180px; height: auto;"></a>
 
 \
 \
-
 
 Para citar o conteúdo deste *website* ou os *notebooks*, por favor, utilize o seguinte texto:
 
-> **Ricardo Luís**. (2022). Documentos computacionais sobre Máquinas Elétricas II [coleção *notebooks* de apoio à unidade curricular de Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: [https://ricardo-luis.github.io/me2](https://ricardo-luis.github.io/me2)
+> **Ricardo Luís**. (2022). Documentos computacionais sobre Máquinas Elétricas II [coleção de *notebooks* de apoio à unidade curricular de Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: [https://ricardo-luis.github.io/me2](https://ricardo-luis.github.io/me2)
 
   \
   \
