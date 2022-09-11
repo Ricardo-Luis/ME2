@@ -17,7 +17,7 @@ Ricardo Luís, PhD
 
 Os *notebooks* deste *website* e respetivo repositório do GitHub, são disponibilizados nos termos da licença *copyleft*:
 
-[![](/assets/ccsa.png)](https://creativecommons.org/licenses/by-sa/4.0/deed.pt)
+[![](./assets/ccsa.png)](https://creativecommons.org/licenses/by-sa/4.0/deed.pt)
 
 Para citar o conteúdo deste *website* ou os *notebooks*, por favor, utilize o seguinte texto:
 
