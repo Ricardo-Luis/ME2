@@ -7,7 +7,7 @@ Este *website* disponibiliza a leitura e o acesso a uma coleção de *notebooks*
 Os *notebooks* são documentos computacionais, também designados por documentos dinâmicos, que utilizam o navegador web (recomendado: Mozilla Firefox ou Google Chrome), combinando simultaneamente, o desenvolvimento e os resultados computacionais, com texto, expressões matemáticas, tabelas, imagens, etc., de uma forma interligada e interactiva com o utilizador.
 
 Estes *notebooks* são desenvolvidos utilizando o **Pluto.jl** que é um ambiente de programação simples e reativo para a linguagem de computação científica Julia.
-https://github.com/Ricardo-Luis/me2/blob/main/website/ccsa.png
+
 
 # Autor
 
@@ -17,16 +17,16 @@ Ricardo Luís, PhD
 
 Os *notebooks* deste *website* e respetivo repositório do GitHub, são disponibilizados nos termos da licença *copyleft*:
 
-[![](https://github.com/Ricardo-Luis/me2/blob/main/website/ccsa.png)](https://creativecommons.org/licenses/by-sa/4.0/deed.pt)
+[![](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/deed.pt)
 
 Para citar o conteúdo deste *website* ou os *notebooks*, por favor, utilize o seguinte texto:
 
 > **Ricardo Luís**. (2022). Documentos computacionais sobre Máquinas Elétricas II [coleção *notebooks* de apoio à unidade curricular de Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: [https://ricardo-luis.github.io/me2](https://ricardo-luis.github.io/me2)
 
-\
-\
-\
-\
-\
+  \
+  \
+  \
+  \
+  \
 
 > The design of this website is based on _**Computational Thinking**, a live online Julia/Pluto textbook._ [(computationalthinking.mit.edu)](https://computationalthinking.mit.edu)
