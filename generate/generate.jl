@@ -97,10 +97,10 @@ show_section_number = false
 # ╔═╡ 01a2336a-5c04-4d5a-bb0b-a9c704517dbf
 pages = [
 	(page = "/logistics/", title = "Notebooks reativos"),
-	(page = "/syllabus/", title = "Acknowledgements"),
 	(page = "/installation/", title = "Instalação de software"),
-	(page = "/cheatsheets/", title = "Consulta rápida")
-]
+	(page = "/cheatsheets/", title = "Consulta rápida"),
+	(page = "/syllabus/", title = "Acknowledgements")
+	]
 
 # ╔═╡ c0768146-5ea0-4736-94f8-2c1a2affa922
 SLASH_PREPATH = !isempty(PREPATH) ? "/" * PREPATH : ""
