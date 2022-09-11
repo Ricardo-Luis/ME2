@@ -21,10 +21,12 @@ Os *notebooks* deste *website* e respetivo repositório do GitHub, são disponib
 
 Para citar o conteúdo deste *website* ou os *notebooks*, por favor, utilize o seguinte texto:
 
-> **Ricardo Luís**. (2022). Documentos computacionais sobre Máquinas Elétricas II [ coleção *notebooks* de apoio à unidade curricular de Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: [https://ricardo-luis.github.io/me2](https://ricardo-luis.github.io/me2)
+> **Ricardo Luís**. (2022). Documentos computacionais sobre Máquinas Elétricas II [coleção *notebooks* de apoio à unidade curricular de Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: [https://ricardo-luis.github.io/me2](https://ricardo-luis.github.io/me2)
 
 \
 \
-
+\
+\
+\
 
 > The design of this website is based on _**Computational Thinking**, a live online Julia/Pluto textbook._ [(computationalthinking.mit.edu)](https://computationalthinking.mit.edu)
