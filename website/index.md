@@ -15,9 +15,16 @@ Ricardo Luís, PhD
 
 # Licença
 
-Os *notebooks* deste *website* e respetivo repositório do GitHub, são disponibilizados nos termos da licença *copyleft*:
+Os *notebooks* deste *website* e respetivo repositório do GitHub, são disponibilizados nos termos da licença:
+[Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa].
 
-[![](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/deed.pt)
+[![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa]
+
+[cc-by-sa]: http://creativecommons.org/licenses/by-sa/4.0/deed.pt
+[cc-by-sa-image]: https://licensebuttons.net/l/by-sa/4.0/88x31.png
+[cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
+
+
 
 Para citar o conteúdo deste *website* ou os *notebooks*, por favor, utilize o seguinte texto:
 
