@@ -1,4 +1,4 @@
-# Consulta rápida (*Cheatsheets*)
+# Consulta rápida
 
 - [Getting Started with Julia - live](/notebooks/notebooks_basic_syntax).
 - [Fastrack to Julia](https://juliadocs.github.io/Julia-Cheat-Sheet/) cheatsheet.
