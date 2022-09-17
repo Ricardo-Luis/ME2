@@ -20,16 +20,8 @@ begin
 	using BasicInterpolators 			# interpolação de dados
 end
 
-# ╔═╡ 339644c3-e4be-4181-a914-a1317e74f06c
-TwoColumn(md"**Copy/paste this URL:**", md"**Display mode:**")
-
-# ╔═╡ 2653c6fc-3c84-4e08-a53b-d0d2d804f140
-TwoColumn(md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/me2/blob/main/notebooks/DC/me2-tp-maq-dc-ex2.jl)", ChooseDisplayMode())
-
-# ╔═╡ b3901cdf-5f76-4649-9de5-865a1e67e9d3
-md"""
----
-"""
+# ╔═╡ 0c910bbe-9eb7-46cc-81c1-f9ccd460976b
+ChooseDisplayMode();
 
 # ╔═╡ c064e55c-6924-49b7-abbc-385a081c57b2
 md"""
@@ -46,6 +38,17 @@ $\textbf{Análise de potências, perdas e rendimento de máquinas DC}$
 # ╔═╡ 01d6ccf1-a046-4386-95b9-7a8437e6bc48
 md"""
 # 1 - Introdução
+"""
+
+# ╔═╡ 2653c6fc-3c84-4e08-a53b-d0d2d804f140
+TwoColumn(md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/me2/blob/main/notebooks/DC/me2-tp-maq-dc-ex2.jl)", ChooseDisplayMode())
+
+# ╔═╡ 339644c3-e4be-4181-a914-a1317e74f06c
+TwoColumn(md"**Copy/paste this URL:**", md"**Display mode:**")
+
+# ╔═╡ b3901cdf-5f76-4649-9de5-865a1e67e9d3
+md"""
+---
 """
 
 # ╔═╡ aa438d59-98d7-41b6-b34d-aa55220cf04f
@@ -67,7 +70,9 @@ md"""
 """
 
 # ╔═╡ 5d618284-7f40-4d33-94a1-829407bd5f47
-
+md"""
+O ensaio *back-to-back* de máquinas elétricas de corrente contínua (DC) consiste em alimentar a partir re uma rede 
+"""
 
 # ╔═╡ 39721ee5-b4f8-47ed-ae4f-0865952ebd28
 
@@ -778,6 +783,16 @@ md"""
 # *Notebook*
 """
 
+# ╔═╡ cd3fb263-b2e7-4f2a-8603-117b51bcf25c
+md"""
+## Bibliotecas julϊ̇a
+"""
+
+# ╔═╡ 6bd294df-005b-4979-b2ee-39922b9223b7
+md"""
+*Links* para a documentação: [Plots](http://docs.juliaplots.org/latest/), [EasyFit](https://github.com/m3g/EasyFit.jl), [TypedTables](https://typedtables.juliadata.org/stable/), [Statistics](https://docs.julialang.org/en/v1/stdlib/Statistics/), [BasicInterpolators](https://markmbaum.github.io/BasicInterpolators.jl/dev/).
+"""
+
 # ╔═╡ 7ad8f4c0-360b-4129-a930-b7e953813154
 begin
 	# other stuff:
@@ -785,6 +800,11 @@ begin
 	version=VERSION
 	TableOfContents(title="Índice")
 end
+
+# ╔═╡ fd49ed4e-b3ab-4b3a-88b2-84f3edcea565
+ThreeColumn(md"$(Resource(isel_logo, :height => 80))", md"
+$\textbf{\color{green}{Licenciatura em Engenharia Eletrotécnica}}$
+$\textbf{Máquinas Elétricas II}$", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/me2/blob/main/notebooks/DC/me2-tp-maq-dc-ex2.jl)") 
 
 # ╔═╡ ba6e7ba4-1f8c-4756-a1d6-02f0c4fb2e84
 TwoColumnWideRight(md"$(Resource(isel_logo, :height => 80))", md"
@@ -804,16 +824,6 @@ md"""
 md"""
 !!! info
 	No índice deste *notebook*, o tópico assinalado com "💻" requer a participação do estudante.
-"""
-
-# ╔═╡ cd3fb263-b2e7-4f2a-8603-117b51bcf25c
-md"""
-## Bibliotecas julϊ̇a
-"""
-
-# ╔═╡ 6bd294df-005b-4979-b2ee-39922b9223b7
-md"""
-*Links* para a documentação: [Plots](http://docs.juliaplots.org/latest/), [EasyFit](https://github.com/m3g/EasyFit.jl), [TypedTables](https://typedtables.juliadata.org/stable/), [Statistics](https://docs.julialang.org/en/v1/stdlib/Statistics/), [BasicInterpolators](https://markmbaum.github.io/BasicInterpolators.jl/dev/).
 """
 
 # ╔═╡ 26d6c46c-a677-4a99-b851-543793a278dc
@@ -840,8 +850,16 @@ Para citar o conteúdo deste *notebook*, utilize o seguinte texto:
 
 # ╔═╡ 68561e10-85b3-4c28-bee1-f36a96ddf619
 md"""
-> **Ricardo Luís**. (2022). Documentos computacionais sobre Máquinas Elétricas II [ coleção de documentos dinâmicos (*notebooks*) de apoio à unidade curricular de Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: [https://ricardo-luis.github.io/me2](https://ricardo-luis.github.io/me2)
+> **Ricardo Luís**. (2022). Documentos computacionais sobre Máquinas Elétricas II [coleção de *notebooks* de suporte a Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: [https://ricardo-luis.github.io/me2](https://ricardo-luis.github.io/me2)
 """
+
+# ╔═╡ 6456ddfc-577c-48e3-81cc-5907183337c7
+md"""
+---
+"""
+
+# ╔═╡ 3cfbc867-8d3f-42d3-954e-5a3572d9ac68
+ThreeColumn(md" $$\text{Text content:}$$ [![](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)", md" $$\text{Code snippets:}$$ [$$\text{MIT License}$$](https://www.tldrlegal.com/l/mit)", md"[$$\text{Copyright }\textcopyright \text{ 2022 Ricardo Luís}$$](https://ricardo-luis.github.io/me2/)")
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -2136,13 +2154,15 @@ version = "1.4.1+0"
 """
 
 # ╔═╡ Cell order:
-# ╟─339644c3-e4be-4181-a914-a1317e74f06c
-# ╟─2653c6fc-3c84-4e08-a53b-d0d2d804f140
-# ╟─b3901cdf-5f76-4649-9de5-865a1e67e9d3
-# ╟─ba6e7ba4-1f8c-4756-a1d6-02f0c4fb2e84
+# ╟─0c910bbe-9eb7-46cc-81c1-f9ccd460976b
+# ╟─fd49ed4e-b3ab-4b3a-88b2-84f3edcea565
 # ╟─c064e55c-6924-49b7-abbc-385a081c57b2
 # ╟─12222dcc-7102-445a-801e-85b11b2b96c3
 # ╟─01d6ccf1-a046-4386-95b9-7a8437e6bc48
+# ╠═ba6e7ba4-1f8c-4756-a1d6-02f0c4fb2e84
+# ╟─2653c6fc-3c84-4e08-a53b-d0d2d804f140
+# ╟─339644c3-e4be-4181-a914-a1317e74f06c
+# ╟─b3901cdf-5f76-4649-9de5-865a1e67e9d3
 # ╟─aa438d59-98d7-41b6-b34d-aa55220cf04f
 # ╟─57972b14-d0eb-49f2-a8fe-fbfa25eb2f43
 # ╟─dcfb10ac-3a34-477f-ae1e-6a4b42fdc0d2
@@ -2224,7 +2244,7 @@ version = "1.4.1+0"
 # ╠═45757ac2-7db2-4ffa-bc5c-fb993eb6a991
 # ╟─debd87f9-13ee-4177-8245-c9cc4df1d157
 # ╟─2a0e3a6a-0fd0-4f9e-ab54-2377d0761ba3
-# ╠═7ced39d8-26a1-497f-94fc-96d725ea6287
+# ╟─7ced39d8-26a1-497f-94fc-96d725ea6287
 # ╟─e9e3afa0-0b4d-4367-a7f9-acd8992a88a5
 # ╟─1ee60c29-bb29-4d9c-a2d9-20fac192f89f
 # ╟─cd62422c-abd3-493d-a563-16520b237537
@@ -2249,16 +2269,18 @@ version = "1.4.1+0"
 # ╠═7787b512-37e0-4c2e-8d43-88433ce6c764
 # ╟─8495592a-9619-4e2c-97fb-ef9f55f29f4d
 # ╟─7ec2f5b9-5779-4f95-979d-96e23e742d5a
-# ╟─6fbbee2e-9055-41cc-878b-6b70e3589c1f
-# ╠═7ad8f4c0-360b-4129-a930-b7e953813154
-# ╟─2d15cc51-918d-4297-bfb1-b5abbebdda9d
 # ╟─cd3fb263-b2e7-4f2a-8603-117b51bcf25c
 # ╟─6bd294df-005b-4979-b2ee-39922b9223b7
 # ╠═e89303b7-3dbb-452c-bd71-ddaac5d22dc4
+# ╟─6fbbee2e-9055-41cc-878b-6b70e3589c1f
+# ╠═7ad8f4c0-360b-4129-a930-b7e953813154
+# ╟─2d15cc51-918d-4297-bfb1-b5abbebdda9d
 # ╟─26d6c46c-a677-4a99-b851-543793a278dc
 # ╟─3627d7c0-014b-47b8-ac4c-9ddb16df5380
 # ╟─7b798090-c27c-4deb-bd5f-8b59b1fabc45
 # ╟─3e8fda22-107d-48f3-86cd-ab24f1f2f1e1
 # ╟─68561e10-85b3-4c28-bee1-f36a96ddf619
+# ╟─6456ddfc-577c-48e3-81cc-5907183337c7
+# ╟─3cfbc867-8d3f-42d3-954e-5a3572d9ac68
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
