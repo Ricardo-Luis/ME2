@@ -859,7 +859,7 @@ md"""
 """
 
 # ╔═╡ 3cfbc867-8d3f-42d3-954e-5a3572d9ac68
-ThreeColumn(md" $$\text{Text content:}$$ [![](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)", md" $$\text{Code snippets:}$$ [$$\text{MIT License}$$](https://www.tldrlegal.com/l/mit)", md"[$$\text{Copyright }\textcopyright \text{ 2022 Ricardo Luís}$$](https://ricardo-luis.github.io/me2/)")
+ThreeColumn(md" $$\text{Text content:}$$ [![](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)", md" $$\text{Code snippets:}$$ [$$\text{MIT License}$$](https://www.tldrlegal.com/l/mit)", md"[$$\text{Copyright } © \text{ 2022 Ricardo Luís}$$](https://ricardo-luis.github.io/me2/)")
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
