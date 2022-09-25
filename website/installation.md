@@ -4,9 +4,9 @@
 > This material is taken from _**Computational Thinking**, a live online Julia/Pluto textbook._ [(computationalthinking.mit.edu)](https://computationalthinking.mit.edu)
 
 
-## Step 1: Install Julia 1.7.2
+## Step 1: Install Julia
 
-Go to [https://julialang.org/downloads](https://julialang.org/downloads) and download the current stable release, Julia 1.7.2, using the correct version for your operating system (Linux x86, Mac, Windows, etc).
+Go to [https://julialang.org/downloads](https://julialang.org/downloads) and download the current stable release of Julia, using the correct version for your operating system (Linux x86, Mac, Windows, etc).
 
 *Mac users beware!* Do **not** download the ARM/M-series version of Julia! It is still experimental and some packages will not work.
 
@@ -29,7 +29,8 @@ Here you type _Julia commands_, and when you press ENTER, it runs, and you see t
 To install Pluto, we want to run a _package manager command_. To switch from _Julia_ mode to _Pkg_ mode, type `]` (closing square bracket) at the `julia>` prompt:
 ```julia
 julia> ]
-
+```
+```julia
 (@v1.7) pkg>
 ```
 
@@ -60,7 +61,8 @@ Repeat the following steps whenever you want to work on a project or homework as
 Start the Julia REPL, like you did during the setup. In the REPL, type:
 ```julia
 julia> using Pluto
-
+```
+```julia
 julia> Pluto.run()
 ```
 
@@ -116,4 +118,4 @@ Click _Choose_.
 
 ## Step 4: Sharing a notebook
 
-After working on your notebook (your code is autosaved when you run it), you will find your notebook file in the folder we created in step 3. This the file that you can share with others, or submit as your homework assignment to Canvas.
+After working on your notebook (your code is autosaved when you run it), you will find your notebook file in the folder we created in step 3. This the file that you can share with others.
