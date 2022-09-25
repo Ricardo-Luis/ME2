@@ -33,19 +33,18 @@ Rua Conselheiro Emídio Navarro, 1
 
 \
 \
-\
 
 # Licença
 \
 
 Os *notebooks* deste *website* e respetivo repositório do GitHub, são disponibilizados nos termos das licenças:
 \
+
 **Textos:** [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/deed.pt) (CC BY-SA 4.0).
 
 \
 **Códigos Julia:** [MIT License](https://tldrlegal.com/license/mit-license)
 
-\
 \
 \
 
@@ -54,8 +53,9 @@ Os *notebooks* deste *website* e respetivo repositório do GitHub, são disponib
 
 As suas [questões](https://github.com/Ricardo-Luis/me2/issues) e/ou [sugestões de melhoria](https://github.com/Ricardo-Luis/me2/pulls) sobre o(s) *notebook*(*s*) são bem-vindas.
 \
-
+\
 Para citar o conteúdo deste *website* ou os *notebooks*, utilize o seguinte texto:
+\
 
 > **Ricardo Luís**. (2022). Documentos computacionais sobre Máquinas Elétricas II [coleção de *notebooks* de suporte a Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: [https://ricardo-luis.github.io/me2](https://ricardo-luis.github.io/me2)
 
