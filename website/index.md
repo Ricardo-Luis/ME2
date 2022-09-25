@@ -8,7 +8,7 @@ Os *notebooks* são documentos computacionais que utilizam o navegador *web*, co
 Estes *notebooks* são desenvolvidos utilizando o **Pluto.jl** que é um ambiente de programação simples e reativo para a linguagem de computação científica Julia.
 
 
-# Autor
+## Autor
 
 
 [**Ricardo Luís**](https://www.isel.pt/docentes/ricardo-jorge-ferreira-luis)
@@ -26,8 +26,7 @@ Rua Conselheiro Emídio Navarro, 1
 
 
 
-
-# Citação
+## Citação
 
 Para citar o conteúdo deste *website* ou os *notebooks*, utilize o seguinte texto:
 
@@ -35,7 +34,8 @@ Para citar o conteúdo deste *website* ou os *notebooks*, utilize o seguinte tex
 > **Ricardo Luís**. (2022). Documentos computacionais sobre Máquinas Elétricas II [coleção de *notebooks* de suporte a Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: [https://ricardo-luis.github.io/me2](https://ricardo-luis.github.io/me2)
 
 
-# Licença
+
+## Licença
 
 O material publicado neste *website* e respetivo repositório do GitHub, está licenciado da seguinte forma:
 
