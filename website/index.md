@@ -15,7 +15,7 @@ Estes *notebooks* são desenvolvidos utilizando o **Pluto.jl** que é um ambient
 # Autor
 \
 
-**Ricardo Luís** [![ORCID iD](https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png)](https://orcid.org/0000-0002-7975-5726)
+[**Ricardo Luís**](https://www.isel.pt/docentes/ricardo-jorge-ferreira-luis)
 
 Professor Adjunto, PhD
 
