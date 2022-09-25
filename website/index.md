@@ -37,13 +37,13 @@ Rua Conselheiro Emídio Navarro, 1
 # Licença
 \
 
-Os *notebooks* deste *website* e respetivo repositório do GitHub, são disponibilizados nos termos das licenças:
+Os *notebooks* deste *website* e respetivo repositório do GitHub, são disponibilizados nos termos das licenças:  
 \
 
-**Textos:** [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/deed.pt) (CC BY-SA 4.0).
+- **Textos:** [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/deed.pt) (CC BY-SA 4.0).
 
 \
-**Códigos Julia:** [MIT License](https://tldrlegal.com/license/mit-license)
+- **Códigos Julia:** [MIT License](https://tldrlegal.com/license/mit-license)
 
 \
 \
