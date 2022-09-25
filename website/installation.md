@@ -30,6 +30,7 @@ To install Pluto, we want to run a _package manager command_. To switch from _Ju
 ```julia
 julia> ]
 ```
+\
 ```julia
 (@v1.7) pkg>
 ```
@@ -62,6 +63,7 @@ Start the Julia REPL, like you did during the setup. In the REPL, type:
 ```julia
 julia> using Pluto
 ```
+\
 ```julia
 julia> Pluto.run()
 ```
