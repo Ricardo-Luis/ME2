@@ -39,8 +39,8 @@ Para citar o conteúdo deste *website* ou os *notebooks*, utilize o seguinte tex
 
 O material publicado neste *website* e respetivo repositório do GitHub, está licenciado da seguinte forma:
 
-- As parcelas de código Julia dos *notebooks* estão sob a licença: [MIT License](https://tldrlegal.com/license/mit-license)
-- Os textos e outros conteúdos dos *notebooks* estão sob a licença: [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/deed.pt) (CC BY-SA 4.0).
+- As parcelas de código Julia dos *notebooks* estão sob os termos da licença: [MIT License](https://tldrlegal.com/license/mit-license)
+- Os textos e outros conteúdos dos *notebooks* estão sob os termos da licença: [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/deed.pt) (CC BY-SA 4.0).
 
 
 As suas [questões](https://github.com/Ricardo-Luis/me2/issues) e/ou [sugestões de melhoria](https://github.com/Ricardo-Luis/me2/pulls) sobre o(s) *notebook*(*s*) são bem-vindas.
