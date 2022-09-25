@@ -15,7 +15,7 @@ Estes *notebooks* são desenvolvidos utilizando o **Pluto.jl** que é um ambient
 # Autor
 \
 
-**Ricardo Luís* [![ORCID iD](https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png)](https://orcid.org/0000-0002-7975-5726)
+**Ricardo Luís** [![ORCID iD](https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png)](https://orcid.org/0000-0002-7975-5726)
 
 Professor Adjunto, PhD
 
@@ -40,16 +40,10 @@ Rua Conselheiro Emídio Navarro, 1
 
 Os *notebooks* deste *website* e respetivo repositório do GitHub, são disponibilizados nos termos das licenças:
 \
-**Textos:** 
+**Textos:** [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/deed.pt) (CC BY-SA 4.0).
 
-[Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/deed.pt) (CC BY-SA 4.0).
-
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 \
-\
-**Códigos Julia:**  
-
-[MIT License](https://tldrlegal.com/license/mit-license)
+**Códigos Julia:** [MIT License](https://tldrlegal.com/license/mit-license)
 
 \
 \
@@ -58,26 +52,12 @@ Os *notebooks* deste *website* e respetivo repositório do GitHub, são disponib
 # Citação
 \
 
-Para citar o conteúdo deste *website* ou os *notebooks*, utilize uma das seguintes opções:
-
-- formato <pre>plain text</pre>
-
-```plaintext
-Ricardo Luís. (2022). Documentos computacionais sobre Máquinas Elétricas II [coleção de notebooks de apoio à unidade curricular de Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: https://ricardo-luis.github.io/me2
-```
+As suas [questões](https://github.com/Ricardo-Luis/me2/issues) e/ou [sugestões de melhoria](https://github.com/Ricardo-Luis/me2/pulls) sobre o(s) *notebook*(*s*) são bem-vindas.
 \
-\
-- formato BibTeX para $$\LaTeX$$
 
-```plaintext
-@misc{storopoli2021programacaojulia,
-  author = {Luís, Ricardo},
-  title = {Documentos computacionais sobre Máquinas Elétricas II},
-  Titleaddon = {coleção de notebooks de apoio à unidade curricular de Máquinas Elétricas II, lecionada no curso LEE do ISEL}
-  url = {https://ricardo-luis.github.io/me2},
-  year = {2022}
-}
-```
+Para citar o conteúdo deste *website* ou os *notebooks*, utilize o seguinte texto:
+
+> **Ricardo Luís**. (2022). Documentos computacionais sobre Máquinas Elétricas II [coleção de *notebooks* de suporte a Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: [https://ricardo-luis.github.io/me2](https://ricardo-luis.github.io/me2)
 
   \
   \
