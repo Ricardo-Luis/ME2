@@ -9,16 +9,15 @@ Agradeço aos amigos e colegas do Grupo Disciplinar de Máquinas Elétricas do I
 # Acknowledgements
 
 
-The design of this website is based on Computational Thinking, a live online Julia/Pluto textbook. (computationalthinking.mit.edu) These online lectures using Pluto notebooks have inspired me to seek and start developing a notebook collection on electrical machines for electrical engineering courses. 
+The design of this website is based on _**Computational Thinking**, a live online Julia/Pluto textbook._ [(computationalthinking.mit.edu)](https://computationalthinking.mit.edu). 
 
-Thanks also to Fabian Greimel, for this template website version for hosting and publishing the Pluto notebooks, which is simple and easy to maintain. 
+These online lectures using Pluto notebooks have inspired me to seek and start developing a notebook collection on electrical machines studies in the electric engineering courses. 
+
+Thanks also to Fabian Greimel, for this [template version of the website](https://github.com/greimel/pluto-course-template), to host and publish Pluto notebooks, which is simple and easy to maintain. 
 
 
-My gratitude to the creators of Pluto.jl, Fons van der Plas and Mikołaj Bochenski and the entire team of contributors, who due to the reactive characteristic of their notebook environment for scientific programming language Julia, made me use this type of computational documents for teaching and research.
+My gratitude to the creators of [Pluto.jl](https://github.com/fonsp/Pluto.jl), Fons van der Plas and Mikołaj Bochenski and the entire team of contributors, who, due to the reactive characteristic of their notebook environment for scientific programming language Julia, made me use this type of computational document for teaching and research.
 
-
-\
-\
 \
 \
 Ricardo Luís
