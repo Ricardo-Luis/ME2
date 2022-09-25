@@ -17,7 +17,7 @@ Estes *notebooks* são desenvolvidos utilizando o **Pluto.jl** que é um ambient
 
 [**Ricardo Luís**](https://www.isel.pt/docentes/ricardo-jorge-ferreira-luis)
 
-Professor Adjunto, PhD
+(Professor Adjunto, PhD)
 
 Departamento de Engenharia Eletrotécnica de Energia e Automação
 
