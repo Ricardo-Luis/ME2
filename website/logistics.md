@@ -1,8 +1,25 @@
 # *Notebooks* reativos
 
 ## _Notebooks_ Pluto
-... _texto em contrução_ ...
 
+.... *WORK IN PROGRESS* ...
+
+**TODO list:**
+
+- [ ]  sobre notebooks... complemento aos el.tos de estudo (não substitui livro, apontamentos da aula, etc...)
+- [ ] Sobre notebooks em geral?! Ex:[Data Science Notebooks](https://datasciencenotebook.org/)
+    - [ ] *literate programming*; ciência reproduzível...
+- [ ] como utilizar os notebooks
+- [ ] Ferramentas utilizadas nos notebooks Pluto:
+    - [ ] Markdown (texto)
+    - [ ] $\LaTeX$ (equações)... não é necessário saber, Ex: [Online Equation Editor](https://www.codecogs.com/eqnedit.php)
+    - [ ] [draw.io](https://app.diagrams.net/) (desenhos, esquemas, diagramas), disponíveis para reutilização
+    - [ ] Julia (cálculo, gráficos); não requer especial conhecimento de programação; sintaxe muito idêntica ao MATLAB/Octave
+    - [ ] PlutoUI (interactividade com o utilizador)
+- [ ] ...
+
+
+\
 ## A linguagem de programação Julia 
 [Julia](https://en.wikipedia.org/wiki/Julia_(programming_language)) é uma linguagem de programação de [alto nível](https://en.wikipedia.org/wiki/High-level_programming_language), [Dinâmica](https://en.wikipedia.org/wiki/Dynamic_programming_language) e de elevado desempenho adequada para [Computação científica](https://pt.wikipedia.org/wiki/Computa%C3%A7%C3%A3o_cient%C3%ADfica). Apresenta ótimas características para a construção de modelos matemáticos e de técnicas de simulação numérica, permitindo analisar e resolver problemas científicos e de engenharia, através do computador.
 
