@@ -15,26 +15,26 @@
                 "preview_image_url": ""
             },
 	    {
-                "name": "[TP] Associação em paralelo de geradores, exercício 6",
-                "notebook_path": "notebooks/DC/me2-tp-maq-dc-ex6.jl",
+                "name": "Paralelo de geradores, Ex.6",
+                "notebook_path": "notebooks/DC/ParallelGenerators.Ex6.jl",
                 "video_id": "",
                 "preview_image_url": ""
             },
 	    {
-                "name": "[TP] Motores de corrente contínua, exercício 7",
-                "notebook_path": "notebooks/DC/me2-tp-maq-dc-ex7.jl",
+                "name": "Curvas características motores, Ex.7",
+                "notebook_path": "notebooks/DC/DCmotors.Ex7.jl",
                 "video_id": "",
                 "preview_image_url": ""
             },
 	    {
-                "name": "Ensaio back-to-back, lab.",
+                "name": "Ensaio back-to-back, Lab.",
                 "notebook_path": "notebooks/DC/back2backlab.jl",
                 "video_id": "",
                 "preview_image_url": ""
             },
 	    {
-                "name": "[TP] Motor série, exercício 9",
-                "notebook_path": "notebooks/DC/me2-tp-maq-dc-ex9.jl",
+                "name": "Motor série, Ex.9",
+                "notebook_path": "notebooks/DC/SeriesMotor.jl",
                 "video_id": "",
                 "preview_image_url": ""
             }
