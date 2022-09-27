@@ -5,7 +5,7 @@
 #> URL = "https://github.com/Ricardo-Luis/me2/blob/main/notebooks/DC/me2-p-maq-dc-back2back.jl"
 #> title = "Ensaio back-to-back"
 #> tags = ["DC machines"]
-#> "to cite the work, use" = "Ricardo Luís. (2022). Documentos computacionais sobre Máquinas Elétricas II [ coleção de documentos dinâmicos (notebooks) de apoio à unidade curricular de Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: https://ricardo-luis.github.io/me2"
+#> "to cite the work, use" = "Ricardo Luís. (2022). Documentos computacionais sobre Máquinas Elétricas II [ coleção de notebooks de suporte a Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: https://ricardo-luis.github.io/me2"
 #> description = "Análise de potências, perdas e rendimento de máquinas DC"
 #> date = "2022-09-06"
 
@@ -20,8 +20,23 @@ begin
 	using BasicInterpolators 			# interpolação de dados
 end
 
+# ╔═╡ 1aceb22f-57fe-4428-bbd7-3410a10e269e
+ThreeColumn(md"`back2backlab.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/back2backlab.jl)", md"`Last update: 27·09·2022`")
+
 # ╔═╡ 0c910bbe-9eb7-46cc-81c1-f9ccd460976b
-ChooseDisplayMode();
+begin
+	html"""
+	<style>
+		main {
+			margin: auto;
+			max-width: 1920px;
+	    	padding-left: max(100px, 10%);
+	    	padding-right: max(100px, 30%);
+		}
+	</style>
+	"""
+	#ChooseDisplayMode()
+end;
 
 # ╔═╡ c064e55c-6924-49b7-abbc-385a081c57b2
 md"""
@@ -32,23 +47,9 @@ $\textbf{Análise de potências, perdas e rendimento de máquinas DC}$
 ---
 """
 
-# ╔═╡ 12222dcc-7102-445a-801e-85b11b2b96c3
-
-
 # ╔═╡ 01d6ccf1-a046-4386-95b9-7a8437e6bc48
 md"""
 # 1 - Introdução
-"""
-
-# ╔═╡ 2653c6fc-3c84-4e08-a53b-d0d2d804f140
-TwoColumn(md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/me2/blob/main/notebooks/DC/me2-tp-maq-dc-ex2.jl)", ChooseDisplayMode())
-
-# ╔═╡ 339644c3-e4be-4181-a914-a1317e74f06c
-TwoColumn(md"**Copy/paste this URL:**", md"**Display mode:**")
-
-# ╔═╡ b3901cdf-5f76-4649-9de5-865a1e67e9d3
-md"""
----
 """
 
 # ╔═╡ aa438d59-98d7-41b6-b34d-aa55220cf04f
@@ -60,7 +61,7 @@ md"""
 md"""
 - Compreender o ensaio *back-to-back*;
 - Ligar eletricamente máquinas DC em paralelo;
-- Estabelecer o balanço de potências de uma máquina de corrente contínua;
+- Estabelecer o balanço de potências de uma máquina de corrente contínua (gerador e motor);
 - Determinar curvas de rendimento das máquinas DC.
 """
 
@@ -71,7 +72,86 @@ md"""
 
 # ╔═╡ 5d618284-7f40-4d33-94a1-829407bd5f47
 md"""
-O ensaio *back-to-back* de máquinas elétricas de corrente contínua (DC) consiste em alimentar a partir re uma rede 
+O ensaio *back-to-back* de máquinas elétricas de corrente contínua (DC) consiste em associar em paralelo um grupo motor-gerador (mecanicamente acoplados), ligados eletricamente a uma rede DC, como apresentado no esquema de ligações, [^Fig_2_1].
+
+O funcionamento do grupo DC motor-gerador no ensaio *back-to-back* pode resumir-se nos seguintes passos:
+- Após o arranque do motor este alimentará mecanicamente o gerador;
+- O gerador é ligado à rede DC, após verificação das condições de paralelo;
+- A regulação da corrente de excitação do gerador, $I_{ex}^G$, permite regular a potência elétrica que o gerador fornece à rede DC, carregando mecanicamente o motor;
+- Em simultâneo, o motor absorve a potência elétrica produzida pelo gerador;
+- Como os processos de conversão eletromecânica de energia nas máquinas têm perdas, a potência absorvida pela rede DC corresponderá ao somatório das perdas existentes no grupo motor-gerador.
+"""
+
+# ╔═╡ 07eeed4a-6a40-4585-b04f-26da0157fe2e
+Foldable("Listagem das grandezas utilizadas neste relatório (👈 clicar em ▶ / ▼ para expandir/comprimir):",md"
+-  $$U, I$$: tensão, corrente da rede DC\
+-  $$p_t$$: perdas totais do sistema *back-to-back*\
+-  $$R_i^M, R_i^G$$: resistências rotórica do motor e gerador, velocidade do grupo motor-gerador\
+-  $$I_l^M, I_l^G$$: correntes de linha do motor e gerador\
+-  $$P_{ab}^M, P_{ab}^G$$: potências absorvidas do motor e gerador\
+-  $$I_{ex}^M, I_{ex}^G$$: correntes de campo do motor e gerador\
+-  $$p_J^M, p_J^G$$:  perdas de Joule no induzido do motor e gerador\
+-  $$p_{ex}^M, p_{ex}^G$$:  perdas de excitação (em derivação) do motor e gerador\
+-  $$p_{ele}^M, p_{ele}^G$$:  perdas elétricas do motor e gerador\
+-  $$p_{C}^M, p_{C}^G$$:  perdas constantes do motor e gerador\
+-  $$P_d^M, P_d^G$$: potências desenvolvidas do motor e gerador\
+-  $$T_d^M, T_d^G$$: binários desenvolvidos do motor e gerador\
+-  $$p^M_{(mec+Fe)}=p^G_{(mec+Fe)}=p_{(mec+Fe)}$$: as perdas mecânicas e magnéticas, ou perdas rotacionais, $$p_{rot}$$, das máquinas consideram-se iguais, dado que as máquinas têm dimensões/características semelhantes\
+-  $$T_d^M=T_d^G=T_d$$: também se conclui que os binários desenvolvidos são iguais, $$T_d=T_u+\frac{p_{rot}}{ω_m}$$ \
+-  $$T_u, ω_m$$ ou $$n$$: binário mecânico, velocidade angular mecânica do grupo motor-gerador em $$\rm rads^{-1}\:$$ ou $$\:\rm rpm$$, respetivamente\
+-  $$P_{u}^M, P_{u}^G$$: potências úteis do motor e gerador\
+-  $$E^{'},E$$: força contra-eletromotriz do motor, força eletromotriz do gerador\
+")
+
+# ╔═╡ 1eb4379f-2d29-4dea-b6c5-cd2f81ed8381
+
+
+# ╔═╡ 184d5409-76fa-4970-9da7-6d8c8bd79713
+md"""
+Seguindo o raciocício sobre o princípio de funcionamento do sistema *back-to-back*, a potência mecânica absorvida pelo gerador, $P_{ab}^G$, corresponde à potência útil do motor, $P_{u}^M$, $(1.2)$.   
+
+Em $(1.1)$ e $(1.3)$ estabelecem-se os balanços de potências para o motor e gerador, respetivamente.
+
+Substituindo $(1.1)$ em $(1.2)$ e recombinando com $(1.3)$ obtém-se $(1.4)$, mostrando que a diferença entre $P_{ab}^M$ e $P_{u}^G$, corresponde ao somatório das perdas do grupo motor-gerador.
+
+Assim, o somatório das perdas corresponde à potência absorvida da rede DC, traduzida em $(1.5)$ e $(1.6)$.
+
+As perdas elétricas do motor e gerador, $P_{el}^M$ e $P_{el}^G$, respetivamente, são determinadas pelo conhecimento dos seus circuitos induzidos e indutores (resistências, tensões e correntes).
+
+Sobram as perdas mecânicas e do ferro, ou perdas rotacionais, de cada máquina DC. Se as máquinas a ensaiar tiverem dimensões e potências semelhantes, então assume-se os mesmo valor de $p_{rot}$ para ambas, $(1.7)$, resultando $(1.8)$. 
+
+Caso tal não se verifique, uma possibilidade consiste em tomar uma ponderação que relacione a potência nominal de cada uma das máquinas DC, atribuindo um peso correnpondente, para o cálculo da perdas rotacionais.
+
+Determinadas todas as perdas é exequível a análise de potências, perdas e rendimento das máquinas DC ensaiadas.
+"""
+
+# ╔═╡ f8de4a5c-64a2-49c4-88e2-c26c843b1fc1
+md"""
+$\begin{align}
+\tag{1.1}
+P_{ab}^M - p_J^M - p_{ex}^M - p_{rot}^M &= P_{u}^M \\
+
+\tag{1.2}
+P_{u}^M &= P_{ab}^G \\
+
+\tag{1.3}
+P_{ab}^G &= P_{u}^G + p_J^G + p_{ex}^G + p_{rot}^G \\
+
+\tag{1.4}
+P_{ab}^M - P_{u}^G &= p_J^M + p_{ex}^M + p_{rot}^M + p_J^G + p_{ex}^G + p_{rot}^G \\
+
+\tag{1.5}
+p_t &= p_{el}^M + p_{el}^G + p_{rot}^M + p_{rot}^G \\
+
+\tag{1.6}
+P_{ab}^M - P_{u}^G &= p_t = U I \\
+
+\tag{1.7}
+p_{rot}^M &\approx  p_{rot}^G \\
+
+\tag{1.8}
+p_{rot} &= \frac{1}{2} (p_t - p_{el}^M - p_{el}^G) \\
+\end{align}$
 """
 
 # ╔═╡ 39721ee5-b4f8-47ed-ae4f-0865952ebd28
@@ -87,9 +167,14 @@ md"""
 ## 2.1 - Esquema de ligações
 """
 
-# ╔═╡ e08c8f92-da7a-4ac8-bc4b-2c19aa014403
+# ╔═╡ cb2b0eb9-2037-4b45-9038-b2f6cd7a16cd
 html"""
-<iframe frameborder="0" style="width:110%;height:450px;" src="https://viewer.diagrams.net/?tags=%7B%7D&highlight=FFFFFF&edit=_blank&layers=1&nav=1&title=back2back_lab.drawio#R7V1Zc5vIFv41qpr7YBXd0CyPXuJ4ppKaTOzr5M5LCktI4gYJDaDYzq%2BfBtFAL6BmlyJrqiamQQ065ztr9zlM1Ov1y%2FvA3q4%2B%2BnPHm0Bl%2FjJRbyYQAlVR8T%2FxyOt%2BxNLRfmAZuPP0onzg3v3ppINKOrpz505IXRj5vhe5W3pw5m82ziyixuwg8J%2Fpyxa%2BR991ay8dbuB%2BZnv86Bd3Hq32oyY08vE7x12uyJ2Bbu3PrG1ycTpFuLLn%2FvN%2BKPlx6ruJeh34frT%2Fa%2F1y7Xgx8Qhd9hS4LTmbPVjgbCKZL%2FzxXnu8vbc%2F6dsvr%2BBh5Xo3X%2BcXZkrmH7a3S39x%2BrTRKyFB4O82cyeeBUzUq%2BeVGzn3W3sWn33GTMdjq2jtpafDKPC%2FZ6RS8cjcDTBjXH%2BDj0N%2FF49fLQN77uLnvvY9P0juoi6SDz63cD2vMH51Gf9X%2BM5NYb6NHyTz2cEshQ5SsocoTGIlH3yGJ1pKxx9OEDkvhaGUiO8df%2B1EwSu%2BhJzVLDRNQZyCWlVTMj7nEEm5oawK6IBK%2Bj07ReUymz1nHP4j5Z2Yj%2B%2Be7x4eP3wOHh%2B%2BBQtltv64eNhdENRV8dHZzC9jiUjotnFi1tjhKmNsJRMxuYLXr%2FhAmWpWNvC%2FZACpgAzcxDRSsqPX4tEnJ3Dxj3WCdLCUFZEdLJ2oArSp7DlzSnR5hhW4gQTcIGOB49mR%2B4MWeBGH0jt88l38xBkeVN2kwIDRMDWYWTDug5mTfrEoo8xcmnl4rj15uLkS2GQ%2FXgpJQuICAXAwoe%2FTw1jg%2FKW%2Fsb13%2BehVriJizubXfPD9bYqp%2FztR9JoKqb2LfBpxzosbfS38vUeWrqH0OAdWfPBaOGBhFWL6RATnPpYHMnbrejm%2B8XH6LGAPUFY08Ej6hfR88XJePkrBvOd8heQCSTC3RKmuKRSyNGj2Bauqn1mln7bxvZ3g3Q9MwzDlVKyWXWyNP9hPjvfJD91U8T%2F5UeSvY1YQq6oU9Vl8YHvuMr505mwSdBThRqa9TK%2BJYpjGc23jZ1m%2FLGNnZup42NAE8XVTdzPfzSI%2FCLO%2FvqF6QJA3MJquUaxCJm9dgCZQaMQKdW9dxlQJ2MAUlAKorRAKsp2qg1y2y4wdJe3NZRsOI9uqQcs20hkglMg2Jov9WrgsEcCw4j6q%2BD45tPYzdqo44GkrjsAJ3TBRHFs%2FwhO6foLNb2LkBX5kpw96AcxK8MnrE2gybDME%2BkQR6BOtL32CDvOUVh%2B1gw4uArhNPt0QVNXRQYKK3H9WLDujZz3nP9WClfSjyZ97%2F7Tnn%2FpndT1%2FykVL%2Fa2ii6ZwOlpWIxdDh1be1kChwyHFLR03IEBNpCv9WABNqbQAh6%2B3rP4thqb3LQ7EM6GClQOhChEhQIsQbCRBzaTjsL9iSIqRrGMzjBhBi0Y%2FF9vIihE06ImQLhck1RUjWBKMlT4Xcz0R737FqFFKqZZVqQyxCzbiyfNn3wVGgorjUYWUNRIyKSvz%2BeOHn%2F7df5%2F%2FhJvHq3u02X54sEm8dCzioRkUelTY0MqojJypplxqqnacoUPhA%2FcKdyQKNHQvijPSfvJ0Oe71f3Y%2BOXERJvi7xBdAbfuSn8QDC3tGf%2BHRCeb2xi5epC%2FjfyNyL%2Fzs%2B9vtxzmJwy5qJBIz4uqmYlhMoqdDXFjDxjJrdz5PQneRt02LLpU4LpWTGiGKzvoVaQqkICGijAeL5O4iFG1MNITnjQaVmB6CBjg2GkQB62BouD5vNGgakw4dXTcYY6Lh5rzRgEwWDWhcNBgSCcqabnIpmY7FoWSierOhPwkOTdTzmpShnj3rAJvjbcw7bqa%2BmSeRRK6Z5anMqjRK%2BgiWo0oRUszOCFfmjyzpAplg0GiIJC4Zwi5j9g0kUbpwb2Ln7o8m1pwY5HY%2BwX6Wz87cKbX42XDyoPToETz7Tea5PgWCh5b5LWfh00CxFSzIsSWQY1beuvNozFKBaIeH3ybwCkD0%2BJ%2FzdmGBSqe3SJJ5NA9WlOjthN8Xb9zG3FZpP0mwV7QvdguT093HKzQBZTbg5b6VPlH57XjH7kVzm%2BlYl0XW99GVZr5P3Yw6UoDwPv3u3BHlSRikNdjmUdjUoSQfISaZXeTZlR1ItGrQ2z80xeIkOpPyQfbTQJHFZmXa89xtWKYDC1S2w%2B2%2BkGLhvsScaUP2TnfdmCq77Z4E8EXCA40nfDbYPeXb204NiWznx9Oymh3wV4PK9LBgDeoZEUetSq6WmBBb%2BZ%2BfVSrZT2QGpZosQGPJovFkIauXFOp7I4tE0VCbYhOempXcORKngHbqWeLLegSoepqecyGqxDb91hnRo2ZmbX4NyyDUfWxeY%2B3p%2FeVpWaXOF6Yhs5PGHNlAoe5D9xpwuCvP5p0FHBBxK0eAg7h2T%2BG19YCFOpN2KyMy28IFO%2F6qq3u6qdxrtcuvdX0pmGrQRAZI%2F0%2BDrr8106offarlOGs3nOFfaW8cfxdOF7vQ%2BQaFsBBVrXdhQRDty%2BPQlFMZQOVVBtnT3rnKkIhwjpmfeXkV%2BSvhp4h7gmSF524fuzMHELLF24KyIAFvAajQCa2Ya72Zg17MQauuBC3NAYLKtGgNmNWF%2FnZhiD0OMCbEwNAQAzTEeuwVMCbEDi5vdLUqwW4hYTvYHHiurusCqmh%2BqgaylcNTKEfuKMnLhkyj%2Bz%2FkeX6Fxjlj585SHluAtknY6Z0aQMk%2FzGKM9JZDRUdTxTK4yXXDzOYeuFkOOh7z17pZzgkYQDBQzM3tbu3LBHI36rpCupKMp2rUhuzGAxRIm6xB2%2FEI2YeORuvU78bTVuMMHdVJ29a2Gkex4BTo%2BYc2c0PHdWjclk%2BjQmxoozYYxAYzahjL1I0OBXbckw0S2WW24ESt4P5P%2F2LtzFb2JhmK4ztxqrNkX9Zc0Ey1E6PJlPADgy%2FTE22RA72tjZGK7jejOYDRhMNoNDbS7G8trPJnvimQzhWIaTJ57dH1B6xXLHqeXaWElFORpDYYJj1lMr3SNAK1uvkoU9WpifpqumaWuG2lz8Vc33W3KLF4jNoU4cxbZIAspzpCjwwxHEbdp3hz5nBg9wgN2SRDbALq7SvupVi%2FvtstWeLQnTs8jAE0DIstpNGZ5TVpEzhQRoF19A8lFNjnGiSfoDZaShy2srJpg8RS8B98WceReX%2BCJBgzh%2FRyJEAaM1NWwDRQAKr200h79ApLS2UqnoS7BHqqsBRTWqan8KlXWFoaX2HJOw79VViKKd8%2BsBBXWL4%2FLSexC%2F6aXIWlQLCGdQwlKpf7rrC0DK7CEvFk6avCUkyWnl%2FnxVOzkjtHYrshxaSjr7AUkpRIV68VlkfNzOOpsBQzSBSqvlVYDpS6ME2mwtIa2UBpcEw4nHuFJVAM7bjwMG7z38%2FkXuHuiYzZQVAASeHEmUPHYHYhC17SNCxyZJr05JY%2FeecF%2Fu6myvwDLhHKhZLxJwkQZdfzxvYPiLOHmNW1hu90UWH1PD27E7rI3xtAX%2BAgiEAgH0zAsFjwegUqZ%2B53QOZNXNrIykKvt2By7spCZ94foqOpCazsYzbUHciqNW3fqmQkV7SeKkHnrkp0Zi1eNaYmHFmb1Nu7dO7axDC1qVX40GX9msks8shqE8NkXhtK3ss1lP4QrU8enf7A3Lo%2BaRWy8gP3J35mmzxRBzrFYN%2B8rGQrNaPplHpv2Tx3nYJ5SPsOkFEqVjOlcmBehJgn7VvHjJQeqadjMEuvjTcdwyZMIHZUCmXajLUibs1YCscQmS%2BGVae42QFoTFsLBAbsJy0mtcy7dU59twOmu8mu%2B5pDNpQWk778bTRvDaXrMthEDINFojWsEpNoJ9P3fgegcRtAEeLpMuiGB%2BE7Z8q9yb42PBiyHZbeNjxIc7bRVpZfiZnHs%2BHh5Z8%2F%2Fn79dPfzSv%2Fy%2Fa8%2FF3%2B5D1fbC4ncUJEb8qWJpdqfLUm0Y96HcLp72AWbFAhX8xiu2tTSJskSp%2F9859jxrVRtimMlfP4FxkfqVDNkPIery%2Fi%2FCdXTSoVdGRqD2zhJEtLF3o%2BiekW2YVETjSpk68FXFkuFVS3fHxdu7U02dn07iaNcbgF7fXD5mprmpNyYzle1NbayIfdxClAzKtRY50gbtdTr91t45ogAbEs9OFxmUIgHsqf4lw%2FUoSUIF%2FsK1MWkhhLO1S8YqEOyDWuQQF1MepHf9FaX0IzBXKAuEq1hlZhEtnGEQF1Vebr0FaiL6VLvtdsdBOqV7Bk7tjvNQF1M0noLes0C9aNm5pEH6mDUrce%2F34LTMkydv%2B0HHZufbfLyOWCPxqw1UbPmCofakwk7PtRuSCQmnCWpb9q2J2N3behyCqN2gyBLfJ%2Buuh1UEvFUm5%2Flb47Z%2BhGe0PUTdH4ra8SQZQ2x3HXk95rswq%2BgRAEoQ8aTRFd1HLoXKckFlZ1WsEN0kKKiNCwrmN0RtPvGN0zXuOz9AhOqoUfaDb5uCziZTpPN2sSN7dzJ6mT5txGwfcEta6pqhW2jveh6S6%2FU9Yev77i%2FvBj1orTUYJ5qdN5%2BqglZhAy3cUuMhvaZshZoCM8bDZZi0WiAvaEBHwZ%2BTPtclcRO10d%2F7sRX%2FAs%3D"></iframe>
+<iframe frameborder="0" style="width:100%;height:600px;" src="https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=back2backlab.drawio#R7V1Zc6O4Fv41rpp5iAtJrI9ZOknP7dzpSXLTfeclRQxOmLaNG%2BMs%2FetHYISREItBApw4XdWJZSywzndWnXM0Qqfz14vAXj5d%2BY47G0HFeR2hsxGE0EAI%2F4pG3jYjAGj6ZuQx8JxkbDtw4%2F1yk0ElGV17jruiLgx9fxZ6S3pw4i8W7iSkxuwg8F%2Foy6b%2BjL7r0n50cwM3E3uWH%2F3mOeET%2BRq6tX3j0vUen5Jbm9DYvDG304s3A6sn2%2FFfNkPxl0OfRug08P1w89f89dSdRatH1mWzAucF76YPFriLsM4HPr1c3t59uQ7ubu%2BDqTKZX01v10fkazzbs3XyjZOnDd%2FIErgL5zhaSfxq4S%2Fw4Iljr57caFqAXzyF81ny5yoM%2FB%2FpOiE8gp8tePuOXyhj1UoH%2Fh8PaAiQgbMIMEr66i376qsbeHM3dINkMP%2B9CS7s4NFNhv64UO%2FOb%2Byv%2BvLbG7h98mZn352jhDKuQ5E8Wa0L18d3Cd7wBS9bQmsJDJ8yJCZjgTuzQ%2B%2BZBoqd4O0xnS69w1ffw08MlYQ5jqCRrHXCG5qpjQ1mmpW%2FDiZu8skscdnJgFY92WaBcpPhPzJffzsU44ePJe7yAg508FLfJC%2F9IHzyH%2F2FPfu0HT0J%2FPXCibEU0XZ7zRffXyao%2BscNw7dEMtjr0Kcx57564ffM3xts6aqWvN5CK3rxlnnBAmuF1yckSPcxR5Cxc2%2B2RTh%2BnTwL2ECUZQ48knwgeT97eZ5DCuG8IX0J74KacG6K0zci0UxZMCr7WmUSaRnd2w0%2BPeM1WyWUeXaD0MNy%2B4v94M6%2B%2Bisv9PwFfu%2FBD0N%2FHi09kb9KVoJFL%2ByZ9xhdOnEXMRqy8CLTHifXhBEso7mW0bPMXx8jvTd2Z1j3BNF1Y2%2FhrCehH6zSv%2B41LuGxxgptb1Et16JHcF9LSZxKAUOnpIBlJrIqI9KAypFpSCmGBUXgXamp9ykTsI7JSAWws0TIMHciD7bMXaTvKHZvztxQMnNvlZBCI0ZnkFDA7Xhd7LfMZTFLrkpuhAD%2FRltwbaYUKkvgfsuSwF15q1iWLP0QT%2Bj5MTrv%2BdgL%2FNBOHvQImIokEYN0ho4GR8QoHBGjyhIxWjWRaYny8uSF7s3SjhnwBS96lRW7GTn1Z34Qz4fO4x9JKwwNg%2BEUM7fCkLPALOcKW%2BDdfIREUpYuKE2PrZNAOwiJEberg0DZcYlRlrXjlJwcryu1sx5GK5OsMw%2BjQrjXdy9Mi5oJc7gkPZHKCb6eqPEBy5KvWFRdNk80MWEIHwGaj2AjNiplER6P1TJ2oBNe%2Bz9ens%2BDv6enn39%2Bv7v%2Fzz9HRJpV8lddq6gj%2FkIqzRU5V6k2fyGdnimV%2BaLZS1VobkkZWS67NAoz7aRCSp3uDFgfZv7kB0cjUJ69VsJNjZiplkq5vvryy7%2F838ufcHF3cqMtll9ubeJADQbyFqLwo5Mg1s6QhwzzpLFi4RrFMLmPLBXxJBxHIV6fYWqcTP348bbQ13%2BuffLG0SqG4DG%2BAKrL1%2B2beGBqT%2BgP3LmBYy%2Fs7EX6Y%2FQ7JPfCz7653WY8x3TYJg15nEZs3YQTp5hPmKGco8N6N3PPcWJ3nmdu09xLxZOlOC0ma1SoI9ak5oVFoDSfRe0THqsDPGiPywI0PGDf8OD5tJ3B4%2FQADzqqajFR1d6lh9EnPM4O8KDgobHo0PpFB7HIBBrbVVtjOQMalq3tUGxZlQmPqKihLasrFRNJ3jIz0IHizShuiaI4O5FsitcIeu8YfyqN9zQJRwmOEQ0s9qMCxn2FDaGUC8mYXUsPXixzo%2BEd77mJMUHsgXYmyWaWa9dxCw2OdDh%2BUHp0AM9%2BllrSDwHnoet8l49pUukaHWVKFWqGuS0OcxvSbCqzkEfaQeS3ETwBQLn7%2FWBU00a1Sm%2BCqsRc7s2q5oWwhSDg6EB%2FHv1pr0o18xJAFv25cXjxThW9onWyD7dGmc6a36Xr3rfNlBo2TbefVdZCkrT5DJDFvZHcJCVeNIeBVoMElky6ihL%2FcEGYlRPZK6WEWUlkhKyuYuV4GiAO%2FqSlDkGeWme5ejbzlqsisZhZdnu13FQgTL3XiFRt6CA3wUjTxzQlDBJByFICqHlKpIPiSdFev6oaT79e7ZdmlUJwYI2rWa%2FbELZ4g3qHEPbF8X6BQv4GKaAdLsPsGx%2Fize0d8HFZ7KZ%2FTHwAqPeGD36xkZJX1B0WFoyyxUYtS40KUlQ5CUnl1QhiSo1aJSG1T1g1x5oBVGgm%2FzNOoLzIaNnX3tfygbm3muBvaS9cf70aT9cr9x5ygeF4Af7Q5iExFqJxOXaISVshms4xOxHH%2FtclSZEaTv2QCbytDyF%2FxQTmkZPjcWC35k6iylBJPWhakZqP4EAOsQEokRutqG0dVIYUldGq2LqtygDYt6E0BhM3lrcxy7dLQJ8gA12DDNAgk1gC3QvIdtyR3T3eyGwiM6nJuQcRnbpctqj7qhRbWT2ZGkpZwRjWlerdCCIhvffQA6TvnY5t4xvG9jEat%2FZQoTZWLCM3n26YCvnpuNGHNhwd17rRxx5oOdCR%2B63p3WyzsfcRXbFZuoj7qtb67CuCTJUmWJdtRbjU1AYjgnbvKtJW%2FHTtydXWrS3Fj6rBMdC3PwYNuq49Oa3f1jW9QqxrDdcVxPIaTo5jpzLd2Ar9uoLn6sTPS%2FXAnmrEzZ%2F%2B0dydPNmLeCjy9vjBzoL0iqwPuIjYVY4CVSGNB43k%2FGQUKC%2FxBUjbPyMFqAcF2oEChd1IN9brlLhdVvo9DwJFukDBtB2YQIG71aC16BK1d91t1Jrs301sCjDlRobJSIm6gSm2LFpaTyhQEJcofDDmeuE9bvgM0GtR9qFmn45Y6EzEosOSfT46es13PDugI4sOTWHR0V3JPhcdqIYrJrKct6T0pErdDUSLsa0NG%2FehyisXOSEB9j6duPio0dZet1VLTfusFSK08hwApA0KyvmgVMOdQg2ozEQKSfvvyANEcnrxDq6UCVpMOQVJ%2B%2Bmikom%2F8nUakr63SiakoFwhU16Tyytk4lOivR%2FAL2S62C8jTga9VYWtY%2BIwXqeWm8qz3A51TD0Z9pDpGmBYfcODFxI9lDH1BA8VqcOCR7%2BN%2FK7JvVbrBzJmB0EGM5k3DkiiqxuYPHOd2FsdQOn15x9%2Fv329%2FHWif%2Fvx15%2FTv7zbk%2BVRr%2FGlz%2BfwgA9K0jCtDjQjvz%2FTKTxAr5Lm8zk44IPOAicF%2BIMBiJkjxeGkrhG9vcdfuISQ0nf3LTpMJOukrjSsxT%2BApXWgsnQR9zV1YIAndUFmn7fTg7q4RCay672c1MWWM3d5UBd%2FgcVvI%2B3pSV0DCe1Xyuy6of1cBr5ljZFqbX%2BkqAIES1VB9fWCCzv4oO81xHI4aYUSiaDHg1b46OClpR0OWukpPMuectbhOSvc1DwBwXutMTjS2H0mypZ1kxsE35rv8EXTnttzbxaR5hZraQxd5b%2FuC%2F7%2F2p%2Fbi5xxAAshksMDBzXFjjFiSl1VJR9Y0yUZVVyMVAqQ%2BhRPCb7EC9oAXJtZ7rIYiWf6eCChtYxGarX6wkilCXLASClGuPkFsdsWTccbl4AqMDRU9VKA2E9xTTEARjx%2FrmEiPp%2F8bfPpmfStulU3nInYLq1pVUeFu9g2F5E8sig%2FjW9r9dKxsU6C4hDhLBymbJZh3XLq2rWqokFa9MByQcoJmA1f5jYr1y5Xutlb9QZaQNpEk0oeYCnNUAsrZxIlW4tuJBe3QryUtqcl1bZZubPgB%2FKm3sQenaLRsRH%2Fj3x8tWNHWPNnduA5dnQYlOJEw49uYDsYulDZHrPU0NodYPSlyO7NsCZU5djB0ICMHQIAzKfVYuuEXEYl1oro%2BcLHeC871P3Yw%2Fx98XQrnLsvLtBSRmKleWPLOPXE6pkYwqRpL51ih4S08gyMwSMtZ5PW9sGYEIDeLfC4O%2BS9BqTRhw9IqyhXdEBMx97Cjbvt8%2B9e1teoaXXp%2BbHbHqBppkCq0SqL%2FOpImmzVXwlv9ZUJkD%2F8qulh0%2FnzYtkGDqK6E%2BcPpgXyPRkC5eGIQHgQgTkRaJBASW8iUPyR5%2FUOwN5FInISVZuZTmWHV1QLvoK4d1cHZSsseHQLiRJ98jpc8ZeyRm%2F0YSlegXjbFHf3l0rH6s%2BGVfLiGz4IRxmva0OvKlD76CqQ3Rvu3QVAPE%2BxY%2F23e5kGLexE6sJedRzbeFFX6%2B3b1m4SI7zGg31gwc1o%2BGJNwJGOYsWa%2BuHFGmTq5fs26w%2BB11KZ%2Bo7SZJqHaNmJVGYicTFarqoxa2jeLSRBtXSodzLRY2A7nkttCk7jn1Gu5c7JcfQv85kzTlNaO5gk%2BNS4yErKSqhiNUtSqdoRJEm%2BacdOM18OyyulgopWDMRWrRkMnhFeSObaxWrtWll1QQtk0joBAJK130VzK24RR41YT3ah65d8Fu7Ws6WediTqV3C8vl0Hi0TunzjRCqljS43ZCY9dunZ0K6SOzYhznFcYvUJjbA7WoHLKthkqA1is%2BVsWoDOVOgCAeiwH2NOmhJGZ1zyupxyWZOz0fBQddJ0zHOeVhuM7SUPp4Dy8VISnst%2FKVwUZJc6b%2BFYINbbX3qXox2q3R9HPj3PU6WA6wL6GLetbDIshBAlSdtLXkE%2BJSvHcsK%2Fh1X7JRyn0Jj7MlvHyrQQ6rYxENRpyvD%2B%2BY89GGALfqTx%2F89BPVAi9dTQaFtuplVs%2FMm3gi2C9jFKr537oB0dpgvXm%2Fg9Bxp615xGBFg%2Br6Ndv9sRfzuw5XvX40%2B4kTt6GC2%2Fi%2F75fIKvKwY5lVAc52HkLID3%2FOXvCD7mIlkQCwPnp5fL27st1cHd7H0yVyfxqertuuOdU%2F6DoQhN2IN1cjvCKs6mAGtN5pXYqAzAq5xKXzMAnp%2Fgswj2goMauutqcgpVzyW63X8dIe8cMiZDOUkBvmBWCzMqpJBOTa%2Be9b3ZESM3JwMb0q5xKcm4Yt%2B%2B%2FcGZsUoTZkWxFKnMeHCQVWzuLVsgeLZebSjYxee2URTDjoOnHRP%2Bg0px%2BVVNJph%2B37%2F5HYkamPXkLXgRVM8kmpfhM7%2BFTj3X%2BGnMiqJpJMvW03aya3VuSCuohOlwwIDYmqbDRp9rngxWdiyq8b2jukSsah%2BafTHDTaT42d3OAH%2ByVe4Y1RAt8Fp%2BQV9y4Yw%2Fx2bC8g53Jqtnsoz08IRzrmpL%2BdFDmRira%2B%2BlL%2BnOPo7ISoq3FIravfQCtfdtaFMEjJnnLbi2FE1HNSt9HvgsLrhqJ2pndAKSS18mXLErB2GkrADtTTGgDkd5d4uGJXwZ%2BROWtsIsS4K58x42u%2BBc%3D"></iframe>
+"""
+
+# ╔═╡ 127a7dbf-88fe-4b28-a265-7bf315850497
+md"""
+[^Fig_2_1]: Esquema de ligações do ensaio *back-to-back*.
 """
 
 # ╔═╡ c387e50c-5aac-4901-b1f3-51b690c38a56
@@ -142,6 +227,9 @@ Máquinas DC de excitação composta (utilizadas em excitação derivação): El
 
 """
 
+# ╔═╡ 59b3486d-61cd-43ac-ae1c-4bd04ab5dd40
+
+
 # ╔═╡ eb5f4190-17a0-4bac-b2a2-1d35622f3d2c
 md"""
 ## 2.3 - Condução do trabalho
@@ -151,7 +239,7 @@ md"""
 md"""
 **Tempo de realização da montagem e execução do ensaio:** cerca de 75 minutos. 
 \
-1. Realizar a montagem elétrica de acordo com o [esquema de ligações](## 2.1 - Esquema de ligações), com:
+1. Realizar a montagem elétrica de acordo com o esquema de ligações, [^Fig_2_1], com:
 
   - reóstato de arranque no valor máximo ⟹ corrente de arranque baixa;
   - reóstato de campo do motor no valor mínimo ⟹ velocidade baixa;
@@ -195,7 +283,7 @@ Tensão da rede de corrente contínua:
 """
 
 # ╔═╡ 5bb9b54a-56f3-431c-b47c-75a58bff7d22
-U=220;
+U = 220; 			# Tensão rede DC, V
 
 # ╔═╡ 494278aa-f24d-4168-8615-f7803495fafd
 md"""
@@ -204,8 +292,8 @@ Medição dos enrolamentos induzidos das máquinas DC:
 
 # ╔═╡ 080ba59a-6a4a-424e-8741-9b59332c2f86
 begin
-	Rᵢᴹ=1.22 	# Resistência do induzido do motor, Ω
-	Rᵢᴳ=2.02 	# Resistência do induzido do gerador, Ω
+	Rᵢᴹ = 1.22 	# Resistência do induzido do motor, Ω
+	Rᵢᴳ = 2.02 	# Resistência do induzido do gerador, Ω
 end;
 
 # ╔═╡ 60cc12ac-6fe6-439b-a149-39ffa704ba8b
@@ -216,17 +304,20 @@ Dados registados ao longo do ensaio *back-to-back*:
 # ╔═╡ a41a8eeb-c2bf-4025-8a91-a5654ba69ca7
 # dados do ensaio:
 begin
-	A₁=["Irede (A)" 2.95 3.15 3.63 4.71 5.40 6.91 7.82 8.64 8.75 10.70]
-	A₂=["Imot (A)" 3.86 6.00 9.13 14.10 16.10 20.83 23.34 24.79 25.33 29.30]
-	A₃=["Iₑₓmot (A)" 0.660 0.660 0.630 0.580 0.580 0.580 0.580 0.605 0.570 0.600]
-	A₄=["Iger (A)" 1.69 3.57 6.02 9.91 11.43 14.42 16.18 16.95 17.16 19.38]
-	A₅=["Iₑₓger (A)" 0.280 0.275 0.280 0.285 0.295 0.320 0.330 0.370 0.360 0.390]
-	taq=["n (rpm)" 1497 1491 1490 1518 1512 1510 1510 1490 1522 1491]
+	A₁ = ["Irede (A)" 2.95 3.15 3.63 4.71 5.40 6.91 7.82 8.64 8.75 10.70]
+	A₂ = ["Imot (A)" 3.86 6.00 9.13 14.10 16.10 20.83 23.34 24.79 25.33 29.30]
+	A₃ = ["Iₑₓmot (A)" 0.660 0.660 0.630 0.580 0.580 0.580 0.580 0.605 0.570 0.600]
+	A₄ = ["Iger (A)" 1.69 3.57 6.02 9.91 11.43 14.42 16.18 16.95 17.16 19.38]
+	A₅ = ["Iₑₓger (A)" 0.280 0.275 0.280 0.285 0.295 0.320 0.330 0.370 0.360 0.390]
+	taq = ["n (rpm)" 1497 1491 1490 1518 1512 1510 1510 1490 1522 1491]
 	A₁, A₂, A₃, A₄, A₅, taq 
 end;
 
 # ╔═╡ fd40f95e-9754-47d7-83a5-3e166947ecb7
-dados_ensaio=Table(A₁=A₁, A₂=A₂, A₃=A₃, A₄=A₄, A₅=A₅, velocidade=taq)
+dados_ensaio = Table(A₁=A₁, A₂=A₂, A₃=A₃, A₄=A₄, A₅=A₅, velocidade=taq)
+
+# ╔═╡ ad18482b-6061-4e3e-b09c-0fa52ba1b6c4
+
 
 # ╔═╡ df5bc5cc-9d9d-41d7-9956-a5f9af31c4cf
 md"""
@@ -245,9 +336,9 @@ md"""
 
 # ╔═╡ eb03dfe8-a2ae-4e65-a28e-0cec0cfbe65b
 begin
-	I=vec(A₁)       # transformar um array num vetor coluna
-	popfirst!(I)    # eliminar 1º elemento do vetor
-	I               # vetor apenas com dados numéricos
+	I = vec(A₁)       		# transformar um array num vetor coluna
+	popfirst!(I)    		# eliminar 1º elemento do vetor
+	I               		# vetor apenas com dados numéricos
 end
 
 # ╔═╡ 82103e6d-a4ab-44fa-a812-da593b506c89
@@ -257,11 +348,11 @@ md"""
 
 # ╔═╡ 887a06bc-bcdf-4a63-b838-e2ef3f60c7cf
 begin
-	Iₗᴹ=vec(A₂)       # transformar um array num vetor coluna
-	Iₗᴳ=vec(A₄)       # transformar um array num vetor coluna
-	popfirst!(Iₗᴹ)    # eliminar 1º elemento do vetor
-	popfirst!(Iₗᴳ)    # eliminar 1º elemento do vetor
-	Iₗᴹ, Iₗᴳ          # vetores apenas com dados numéricos
+	Iₗᴹ = vec(A₂)       	# transformar um array num vetor coluna
+	Iₗᴳ = vec(A₄)       	# transformar um array num vetor coluna
+	popfirst!(Iₗᴹ)    		# eliminar 1º elemento do vetor
+	popfirst!(Iₗᴳ)    		# eliminar 1º elemento do vetor
+	Iₗᴹ, Iₗᴳ          		# vetores apenas com dados numéricos
 end
 
 # ╔═╡ 398ed3f9-e634-4281-8bc6-5b4fb504e97e
@@ -271,11 +362,11 @@ md"""
 
 # ╔═╡ 983f6e18-4913-4f32-a741-2d72f9ddd792
 begin
-	Iₑₓᴹ=vec(A₃)       # transformar um array num vetor coluna
-	Iₑₓᴳ=vec(A₅)       # transformar um array num vetor coluna
-	popfirst!(Iₑₓᴹ)    # eliminar 1º elemento do vetor
-	popfirst!(Iₑₓᴳ)    # eliminar 1º elemento do vetor
-	Iₑₓᴹ, Iₑₓᴳ         # vetores apenas com dados numéricos
+	Iₑₓᴹ = vec(A₃)       	# transformar um array num vetor coluna
+	Iₑₓᴳ = vec(A₅)       	# transformar um array num vetor coluna
+	popfirst!(Iₑₓᴹ)    		# eliminar 1º elemento do vetor
+	popfirst!(Iₑₓᴳ)    		# eliminar 1º elemento do vetor
+	Iₑₓᴹ, Iₑₓᴳ         		# vetores apenas com dados numéricos
 end
 
 # ╔═╡ 3eb827b9-b335-4423-8597-34c935972313
@@ -285,20 +376,20 @@ md"""
 
 # ╔═╡ 48fab47e-b551-4db7-83f1-cb99d348d6a5
 begin
-	n=vec(taq)      # transformar um array num vetor coluna
-	popfirst!(n)    # eliminar 1º elemento do vetor
-	n               # vetor apenas com dados numéricos
+	n = vec(taq)      	# transformar um array num vetor coluna
+	popfirst!(n)    	# eliminar 1º elemento do vetor
+	n               	# vetor apenas com dados numéricos
 end
 
 # ╔═╡ f0132080-ad3c-47d1-b0e3-c9c7994c072f
 begin
-	n_media=median(n)  # cálculo da média aritmética
-	n_media=round(Int, n_media)   # arredondamento a número inteiro 
+	n_media = median(n)  			# cálculo da média aritmética
+	n_media = round(Int, n_media)   # arredondamento a número inteiro 
 
-	n_desvio=std(n)    # cálculo do desvio padrão
-	n_desvio=round(Int, n_desvio)
+	n_desvio = std(n)    			# cálculo do desvio padrão
+	n_desvio = round(Int, n_desvio)
 	
-	n_media, n_desvio   # mostrar resultados estatísticos
+	n_media, n_desvio   			# mostrar resultados estatísticos
 end
 
 # ╔═╡ b32d55d7-80b2-45f1-abaf-ef8f6958e980
@@ -316,15 +407,20 @@ md"""
 Assim, como a tensão das máquinas é contante (ambas ligadas à rede DC de $$220\rm V$$) e a velocidade é aproximadamente constante, perspectiva-se que as perdas rotacionais, $$p_{rot}$$, das máquinas sejam também aproximadamente constantes.
 """
 
-# ╔═╡ 6a7b7432-cb54-445a-aa39-33a13fb958ba
-
-
 # ╔═╡ 5bcefcd9-f30e-4b40-a1f0-b66ff862d963
 begin
-	 Kirchhoff=I+Iₗᴳ-Iₗᴹ 				 
-	 Kirchhoffₘₐₓ=maximum(Kirchhoff)
-	 Kirchhoff, Kirchhoffₘₐₓ
+	Kirchhoff = I + Iₗᴳ - Iₗᴹ 				 
+	Kirchhoffₘₐₓ = maximum(Kirchhoff)
+	Kirchhoffₘₐₓ = round(Kirchhoffₘₐₓ, digits=1)
+	
+	Kirchhoff, Kirchhoffₘₐₓ
 end
+
+# ╔═╡ 6a7b7432-cb54-445a-aa39-33a13fb958ba
+md"""
+**REPRESENTAR UM NÓ!!!**
+Aplicando a lei dos nós, ao nó $\textbf 1$ apresentado no esquema de ligações, [^Fig_2_1], verifica-se que as correntes medidas: $I$, $I_l^G$ e $I_l^M$, não verificam plenamente a 1ª lei de Kirchhoff, devido a diferenças de aferição entre os amperímetros utilizados, sendo o erro absoluto máximo das correntes medidas nesse nó de $(Kirchhoffₘₐₓ)A, ao longo do ensaio. 
+"""
 
 # ╔═╡ 81298eb8-b548-42aa-9fea-fa502482578b
 
@@ -340,33 +436,17 @@ md"""
 """
 
 # ╔═╡ df08b5c7-d63b-430d-8869-a994ed85b73c
-
+md"""
+Na figura seguinte apresenta-se um diagrama representativo do balanço de potências relativo ao ensaio *back-to-back*:
+"""
 
 # ╔═╡ 0d8c4c17-1294-47ca-a993-c31099ef4640
 html"""
 <iframe frameborder="0" style="width:110%;height:600px;" src="https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=FlowPower_b2b.png#R7Vpbb5swFP41aN3DJMBcksflUjZplbp216fIBYdYdXBknCbdr58NhnBtkolQrSIPqfPZHBt%2F3znHnKKB6XrvMbhZ3dAAEc3Ug70GZpppuiNTfEvgOQVsd5wCIcNBChkH4B7%2FQQrUFbrFAYpLAzmlhONNGfRpFCGflzDIGN2Vhy0pKc%2B6gSGqAfc%2BJHX0Jw74SqGGrh86PiEcrtTUI1t1PED%2FMWR0G6n5NBMsk0%2FavYa5rRSIVzCguxRKTIC5BqaMUp621vspInJrs21L57lu6c3XzVDET7nAvfv9dRzhR%2B9HDH4tkfVlfn%2F3ASj2niDZouw%2BktXy52yHxMI3srkkaP9R7rgGJigKVHPmExjH2Bfgiq%2BJAAzRjDmjj%2FmGAoEsMSFTSihLjGZbBSb121B3hoISceqmPETXiLNnMWB3oCvjZFUgKsMYIpDjpzLdUKkmzM3lM9xSLFZi6krg40yoSt9OZjczEdMt85G6qrj%2FFUO2c8QQhyxEvGZINAq3fYASes%2Bh2hio7onqqiHX6pdqczxQfR7VwOmIasc2TqJa7DN8LgzbyAFx%2B4JFPmpecdvCahdkKztoLV1Dt8pzBuWdqzy7G%2BWZbsXQpYPMkE%2BOUF3N%2BJ0FmZqhC1NtuAPVPVFdNWT1fEoc4vcRpg27I6aB%2BcpOPcTvI1QfZehfnbp3qoen%2FGPx264elnv26nOfB6rzZAu%2B6OnesBp0JDBrs9DcCdfcmQC%2Ff06xmsI42vMm%2FWR6iWiEKhJSECQ4jKQIhXqQwCdPiHHsQ%2FJRdaxxEMhpJrsV5uh%2BA305547BjcCSGh2S96VL8zTiqgppyt95Wc54SaZyQrR%2FUahZr1URgA7S3wUhG26DkqtCKYq2FBDOZs1uYe12sdXsuZdwtiBJ839iLsAM%2BRxTaQbBOFkhZfiPGAaJuqYDQs1KaLBMu0boqIHPvMLdPaFNh7SUUOGG8EH6oT2%2FOfB686Z47chRQc1R9dd21NFL4RWJ7cyJvVtg2bpS%2FH74nIzYqwHvxZe4dPK9DGumQ%2BRuPjDRCnmyjYMuqrqwQMXfrbou8uzbjy6ayrmSuMy7wSyP35P%2FK%2Fuewqm8pnCm1MXn%2BvpCMcB57Rhgth2xbheB4nou%2Fgq3fie8utX%2FweybGm9PxcpCKPvXyJcD3po%2BOtCB7R4%2FtOX5oR8dNJXcklwgWZVsXkk6zck1ej%2BQ2kjqqPLUnf2DvOTcRp%2BkZpnlSIL38gTvXRUCe9HFveYU7w0p%2FqQUX6mn2w1HP9BUbbicMkCDMoYKzTmvT%2FxrMc7uuRgHWoso0oGHyH5KZK88krvg1SN7e40lUBF9%2FkIsz45r3nBcO4V%2Fp%2FpqQ8Ox3ez12A7aSzJbdWz%2FJls1dsGsVLR5exU4RjlUQ4xRRyW51pdhigJwGvg3x%2BcLQPw8vKSZJoHDi7Bg%2Fhc%3D"></iframe>
 """
 
-# ╔═╡ 07eeed4a-6a40-4585-b04f-26da0157fe2e
-Foldable("Listagem das grandezas utilizadas neste relatório (👈 clicar em ▶ / ▼ para expandir/comprimir):",md"
--  $$U, I$$: tensão, corrente da rede DC\
--  $$p_t$$: perdas totais do sistema *back-to-back*\
--  $$R_i^M, R_i^G$$: resistências rotórica do motor e gerador, velocidade do grupo motor-gerador\
--  $$I_l^M, I_l^G$$: correntes de linha do motor e gerador\
--  $$P_{ab}^M, P_{ab}^G$$: potências absorvidas do motor e gerador\
--  $$I_{ex}^M, I_{ex}^G$$: correntes de campo do motor e gerador\
--  $$p_J^M, p_J^G$$:  perdas de Joule do motor e gerador\
--  $$p_{ex}^M, p_{ex}^G$$:  perdas de excitação (em derivação) do motor e gerador\
--  $$p_{ele}^M, p_{ele}^G$$:  perdas elétricas do motor e gerador\
--  $$p_{C}^M, p_{C}^G$$:  perdas constantes do motor e gerador\
--  $$P_d^M, P_d^G$$: potências desenvolvidas do motor e gerador\
--  $$T_d^M, T_d^G$$: binários desenvolvidos do motor e gerador\
--  $$p^M_{(mec+Fe)}=p^G_{(mec+Fe)}=p_{(mec+Fe)}$$: as perdas mecânicas e magnéticas, ou perdas rotacionais, $$p_{rot}$$, das máquinas consideram-se iguais, dado que as máquinas têm dimensões/características semelhantes\
--  $$T_d^M=T_d^G=T_d$$: também se conclui que os binários desenvolvidos são iguais, $$T_d=T_u+\frac{p_{rot}}{ω_m}$$ \
--  $$T_u, ω_m$$ ou $$n$$: binário mecânico, velocidade angular mecânica do grupo motor-gerador em $$\rm rads^{-1}\:$$ ou $$\:\rm rpm$$, respetivamente\
--  $$P_{u}^M, P_{u}^G$$: potências úteis do motor e gerador\
--  $$E^{'},E$$: força contra-eletromotriz do motor, força eletromotriz do gerador\
-")
+# ╔═╡ 8358d4e1-09c2-4467-b0fa-26fc9a882e9c
+
 
 # ╔═╡ 66ada8ac-6556-4d18-9cf3-cbdbf3f9bc69
 md"""
@@ -384,7 +464,7 @@ md"""
 """
 
 # ╔═╡ 2b7754b3-44b3-4a09-99e2-4827afbacc64
-pₜ = U*I
+pₜ = U * I
 
 # ╔═╡ 9c117644-13d3-4de3-a30b-e626df7d6815
 md"""
@@ -393,8 +473,8 @@ md"""
 
 # ╔═╡ fc62b652-0d92-49e4-ae27-fd04a6b1d8bd
 begin
-	pⱼᴹ = Rᵢᴹ*Iₗᴹ.^2
-	pⱼᴳ = Rᵢᴳ*Iₗᴳ.^2
+	pⱼᴹ = Rᵢᴹ * Iₗᴹ.^2
+	pⱼᴳ = Rᵢᴳ * Iₗᴳ.^2
 	pⱼᴹ, pⱼᴳ
 end
 
@@ -405,8 +485,8 @@ md"""
 
 # ╔═╡ 1c048c68-2a41-4710-9d5d-e092abbfc7d9
 begin
-	pₑₓᴹ = U*Iₑₓᴹ
-	pₑₓᴳ = U*Iₑₓᴳ
+	pₑₓᴹ = U * Iₑₓᴹ
+	pₑₓᴳ = U * Iₑₓᴳ
 	pₑₓᴹ, pₑₓᴳ
 end
 
@@ -416,7 +496,7 @@ md"""
 """
 
 # ╔═╡ 4cda0d79-6a76-4529-b70e-4eb0bf9c2451
-pᵣₒₜ = 0.5*(pₜ-pₑₓᴹ-pⱼᴹ-pₑₓᴳ-pⱼᴳ)
+pᵣₒₜ = 0.5 * (pₜ - pₑₓᴹ - pⱼᴹ - pₑₓᴳ - pⱼᴳ)
 
 # ╔═╡ 0865009d-6d80-452b-b9e5-74b424f9b3c3
 begin
@@ -432,7 +512,9 @@ Como esperado as perdas rotacionais são aproximadamente constantes, apresentand
 """
 
 # ╔═╡ 361b5bbe-2fcd-4f96-8488-c52d9b2dbea5
-
+md"""
+- Cálulo das perdas constantes do motor e do gerador:
+"""
 
 # ╔═╡ 863fe345-3a98-46d6-9112-78ee18635ffe
 begin
@@ -446,19 +528,16 @@ md"""
 - Cálulo da potência útil do motor:
 """
 
-# ╔═╡ 02cc64b1-79d8-44e9-b318-855fc77c86dc
-
-
 # ╔═╡ ad8fdc0f-4059-4bec-98a5-8b38b5a17fd0
-Pᵤᴹ¹ = U*Iₗᴳ+pₑₓᴳ+pⱼᴳ+pᵣₒₜ
+Pᵤᴹ¹ = U * Iₗᴳ + pₑₓᴳ + pⱼᴳ + pᵣₒₜ
 
 # ╔═╡ 5d25244c-7d05-43af-a6a5-69fdb52a253e
-Pᵤᴹ² = U*Iₗᴹ-pₑₓᴹ-pⱼᴹ-pᵣₒₜ
+Pᵤᴹ² = U * Iₗᴹ - pₑₓᴹ - pⱼᴹ - pᵣₒₜ
 
 # ╔═╡ 901eaef2-2cff-4131-b19c-b43a88b35b34
 begin
-	dif=Pᵤᴹ¹-Pᵤᴹ² 			# diferença na fórmula de cálculo
-	difₘₐₓ=maximum(dif)		# diferença máxima
+	dif = Pᵤᴹ¹ - Pᵤᴹ² 			# diferença na fórmula de cálculo
+	difₘₐₓ = maximum(dif)		# diferença máxima
 end
 
 # ╔═╡ 6f801fcc-ac53-4a91-a37b-1b35118f8b86
@@ -511,10 +590,12 @@ md"""
 # ╔═╡ 7bcd562e-970f-4614-94d0-41b8f47a5ff2
 begin
 	# Gráfico da esquerda:
-	h1=plot( ylabel="Potências (kW)", xlabel="Corrente (A)", title="Motor vs Gerador")
+	h1=plot(                  ylabel="Potências (kW)", xlabel="Corrente (A)",
+			title="Motor vs Gerador")
 
 	# Gráfico da direita:
-	h2=plot( ylabel="Binários (Nm)", xlabel="Corrente (A)", title="Motor vs Gerador")
+	h2=plot(                  ylabel="Binários (Nm)", xlabel="Corrente (A)", 
+			title="Motor vs Gerador")
 	
 	#Disposição dos gráficos
 	plot(h1, h2, layout = (1, 2))
@@ -523,13 +604,12 @@ end
 # ╔═╡ 51f8e7ee-868e-47d9-bfa5-4ac06f37d942
 md"""
 **Análise:**
-
-
-
-...
-
-
-
+      
+    
+    
+    
+    
+.
 """
 
 # ╔═╡ 95fdbbc4-b612-4512-9069-6110e41f9e9d
@@ -670,25 +750,37 @@ md"""
 Verifica-se apesar dos ligeiros declives, que as perdas "constantes" do motor e do gerador são efetivamente aproximadamente constantes, apresentando uma variação em relação ao valor médio, de $(pcᴹᵥₐᵣ)% e $(pcᴳᵥₐᵣ)%, respetivamente. 
 """
 
+# ╔═╡ 5ea61cf4-4f87-43ef-8556-f37ea60d2515
+
+
 # ╔═╡ c870e56a-cc10-4f85-9767-af46d9845b6a
 md"""
 ### 4.4.1 - Rendimento nominal
 """
 
+# ╔═╡ d9063387-a1d9-44e5-81e8-9dd4111ad72a
+md"""
+Consultando as curvas de rendimento do motor e do gerador, para as respectivas correntes nominais, obtêm-se os seguintes rendimentos nominais:
+"""
+
 # ╔═╡ 24331be7-d705-41e9-925a-ec76b80fa38f
+# Forma computacional para leitura dos rendimentos nominais:
 begin
-	(Iₙᴹ, Iₙᴳ) = (29, 16)					# correntes nomminais, A
+	(Iₙᴹ, Iₙᴳ) = (29, 16)							# correntes nomminais, A
 	
-	ηᴹ_I = LinearInterpolator(FIT_ηᴹ.x,FIT_ηᴹ.y)  	# interpolação linear da linha de tendência
-	ηₙᴹ = ηᴹ_I(Iₙᴹ)									# rendimento nominal
+	ηᴹ_I = LinearInterpolator(FIT_ηᴹ.x,FIT_ηᴹ.y)  	# interpolação linear da linha de 												tendência
+	ηₙᴹ = ηᴹ_I(Iₙᴹ)									# rendimento nominal, motor
 	ηₙᴹ = round(ηₙᴹ, digits=1)
 
 	ηᴳ_I = LinearInterpolator(FIT_ηᴳ.x,FIT_ηᴳ.y)
 	ηₙᴳ = ηᴳ_I(Iₙᴳ)
 	ηₙᴳ = round(ηₙᴳ, digits=1)
 
-	Text("ηₙᴹ = $(ηₙᴹ)%"), Text(" 	ηₙᴳ = $(ηₙᴳ)%")
+	Text("ηₙᴹ = $(ηₙᴹ)%"), Text(" 	ηₙᴳ = $(ηₙᴳ)%")	# apresentação de resultados
 end
+
+# ╔═╡ 36ce1f19-59f6-4595-a75a-22f519e326d9
+
 
 # ╔═╡ c674d531-be5a-45b6-b5be-480753f0135f
 md"""
@@ -728,15 +820,9 @@ Da análise às curvas de rendimento das máquinas DC, verificam-se os seguintes
 
 # ╔═╡ 291e034f-a119-4c9b-8a50-4a35cd54e055
 md"""
-Comparando os pontos de rendimento máximo obtidos, do motor e do gerador, relativamente às respetivas perdas, verifica-se uma boa aproximação à ....
-"""
+Comparando os pontos de rendimento máximo obtidos, do motor e do gerador, relativamente às respetivas perdas, verifica-se uma boa aproximação ao esperado dos conceitos teóricos sobre análise de rendimento de máquinas elétricas, em que o rendimento máximo se verifica quando as perdas variáveis são iguais às perdas contantes. 
 
-# ╔═╡ 6fcc30b8-08bd-4331-a6cd-032d2eaf4dae
-
-
-# ╔═╡ dd826725-e976-4e34-8b17-8f8acd932d1b
-md"""
-Procura-se verificar a condição de rendimento máximo, ou seja, que o mesmo sucede quando as perdas variáveis são iguais às perdas constantes.
+Alguma divergência nos valores encontrados, como apontado anteriormente, podem ser justificadas pela  diferença de aferição dos aparelhos de leitura utilizados, as pequenas variações de velocidade do grupo motor-gerador ao longo do ensaio e as perdas "constantes" na prática, apresentarem algum declive, ainda que pouco acentuado.
 """
 
 # ╔═╡ c53871d4-c739-4dcf-ad6d-c5dced86c208
@@ -761,11 +847,18 @@ Por conseguinte, a potência consumida da rede elétrica corresponde ao somatór
 
 # ╔═╡ e7aae6a9-1fa7-48a1-9b11-8e60c69cf9c9
 md"""
-O funcionamento do ensaio *back-to-back* utiliza a regulação dos circuitos de excitação de ambas as máquinas DC. Por um, lado o reostato de campo do gerador DC ajusta a potência de saída do gerador (pois encontra-se ligado a uma rede DC de tensão constante), que por sua vez solicita mais potência mecânica oo motor DC (alimentado da mesma rede DC). Neste ajuste a velocidade poderá sofrer alguma variação significativa, sendo corrigida por atuação do reostato de campo do motor DC.
+O funcionamento do ensaio *back-to-back* utiliza a regulação dos circuitos de excitação de ambas as máquinas DC. Por um lado, o reóstato de campo do gerador DC ajusta a potência de saída do gerador (pois encontra-se ligado a uma rede DC de tensão constante), que por sua vez solicita mais potência mecânica ao motor DC (alimentado da mesma rede DC). Neste ajuste a velocidade poderá sofrer alguma variação significativa, sendo corrigida por atuação do reóstato de campo do motor DC.
 
-Estas variações nos reostato de campo e consequentes variações nas correntes de excitação das máquinas provocam pequenas variações nas perdas constantes, mas aceitáveis, o que ....  
-... sobre as perdas constantes vs reostatos de campo.
+Estas variações nos reostato de campo e consequentes variações nas correntes de excitação das máquinas provocam pequenas variações nas perdas constantes, contudo aceitáveis.
 """
+
+# ╔═╡ 5dded0ab-c093-4e14-a2f2-de5d3506d171
+md"""
+Como conclusão final, o ensaio *back-to-back* permite a análise de potências, cálculo das perdas e rendimento de 2 máquinas elétricas em simultâneo e com baixo consumo de energia.
+"""
+
+# ╔═╡ 0b42e250-90d9-4b97-8fb6-0a7a896b92e5
+
 
 # ╔═╡ e4d17d82-b7f0-4070-9177-e6a1cebb4c24
 md"""
@@ -773,7 +866,30 @@ md"""
 """
 
 # ╔═╡ 7787b512-37e0-4c2e-8d43-88433ce6c764
+md"""
+O ensaio *back-to-back* pode ser também aproveitado para se analisar a reversibilidade de funcionamento das máquinas do grupo motor-gerador.
 
+Assim, com o sistema em funcionamento, o aumento do reóstato de campo do circuito de excitação do gerador pode fazer baixar a sua força-eletromotriz, tal que esta seja menor que a tensão da rede DC, invertendo o sentido da corrente de linha nesta máquina, passando a regime motor:
+
+$R_c 	\nearrow \quad \Rightarrow \quad I_{ex} \searrow\quad \Rightarrow \quad \phi \searrow \quad \Rightarrow \quad E \searrow$
+
+$\text{Se:} \quad E<U \quad \Rightarrow \quad I_l < 0 \quad \text{, então:} \quad \rm gerador \triangleright motor$
+"""
+
+# ╔═╡ 4cbd2235-074d-4374-99c8-f290215b1640
+md"""
+Do lado do motor DC estabelece-se um raciocínio semelhante, para que este passe para o regime de funcionamento gerador:
+
+$R_c 	\searrow \quad \Rightarrow \quad I_{ex} \nearrow\quad \Rightarrow \quad \phi \nearrow \quad \Rightarrow \quad E \nearrow$
+
+$\text{Se:} \quad E>U \quad \Rightarrow \quad I_l > 0 \quad \text{, então:} \quad \rm motor \triangleright gerador$
+
+"""
+
+# ╔═╡ 46a23d85-70f0-4f15-9a76-8a3701a82183
+md"""
+O teste de reversibilidade com o grupo motor-gerador deve ser realizado com especial cuidado por causa do reostato de campo com o terminal $\textbf q$ (reostato de campo do gerador DC) estar em funcionamento. Assim, quando a máquina DC muda o regime de funcionamento de gerador para motor, tendo em conta a possibilidade do circuito de excitação ficar acidentalmente em aberto, e consequentemente, provocar o embalamento do motor DC.
+"""
 
 # ╔═╡ 8495592a-9619-4e2c-97fb-ef9f55f29f4d
 
@@ -783,39 +899,29 @@ md"""
 # *Notebook*
 """
 
-# ╔═╡ cd3fb263-b2e7-4f2a-8603-117b51bcf25c
-md"""
-## Bibliotecas julϊ̇a
-"""
-
 # ╔═╡ 6bd294df-005b-4979-b2ee-39922b9223b7
 md"""
-*Links* para a documentação: [Plots](http://docs.juliaplots.org/latest/), [EasyFit](https://github.com/m3g/EasyFit.jl), [TypedTables](https://typedtables.juliadata.org/stable/), [Statistics](https://docs.julialang.org/en/v1/stdlib/Statistics/), [BasicInterpolators](https://markmbaum.github.io/BasicInterpolators.jl/dev/).
+Documentação das bibliotecas Julia utilizadas: \
+[Plots](http://docs.juliaplots.org/latest/), [EasyFit](https://github.com/m3g/EasyFit.jl), [TypedTables](https://typedtables.juliadata.org/stable/), [Statistics](https://docs.julialang.org/en/v1/stdlib/Statistics/), [BasicInterpolators](https://markmbaum.github.io/BasicInterpolators.jl/dev/).
 """
 
 # ╔═╡ 7ad8f4c0-360b-4129-a930-b7e953813154
 begin
 	# other stuff:
 	isel_logo="https://www.isel.pt/sites/default/files/NoPath%20-%20Copy%402x_0.png"
+	julia_logo="https://github.com/JuliaLang/julia-logo-graphics/blob/master/images/julia-logo-color.png?raw=true"
 	version=VERSION
-	TableOfContents(title="Índice")
-end
+end;
 
 # ╔═╡ fd49ed4e-b3ab-4b3a-88b2-84f3edcea565
-ThreeColumn(md"$(Resource(isel_logo, :height => 80))", md"
-$\textbf{\color{green}{Licenciatura em Engenharia Eletrotécnica}}$
-$\textbf{Máquinas Elétricas II}$", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/me2/blob/main/notebooks/DC/me2-tp-maq-dc-ex2.jl)") 
-
-# ╔═╡ ba6e7ba4-1f8c-4756-a1d6-02f0c4fb2e84
-TwoColumnWideRight(md"$(Resource(isel_logo, :height => 80))", md"
-$\textbf{\color{green}{Licenciatura em Engenharia Eletrotécnica}}$
-$\textbf{Máquinas Elétricas II}$")
+ThreeColumn(md"$(Resource(isel_logo, :height => 75))", md"
+$\textbf{\color{green}{Lic. em Engenharia Eletrotécnica}}$", md"$\text{Máquinas Elétricas II}$") 
 
 # ╔═╡ 6fbbee2e-9055-41cc-878b-6b70e3589c1f
 md"""
 *Notebook* realizado em linguagem de computação científica Julia versão $(version).
 
-**_Time to first plot_**: até cerca de 2.5 min.
+**_Time to first plot_**: até cerca de 2.0 min.
 
 **Computador**: Intel® Core™ i5-6300U CPU @ 2.40GHz; 20GB RAM.
 """
@@ -826,40 +932,16 @@ md"""
 	No índice deste *notebook*, o tópico assinalado com "💻" requer a participação do estudante.
 """
 
-# ╔═╡ 26d6c46c-a677-4a99-b851-543793a278dc
-md"""
-## Licença e autor
-"""
-
-# ╔═╡ 3627d7c0-014b-47b8-ac4c-9ddb16df5380
-md"""
-O conteúdo deste *notebook* é disponibilizado nos termos da licença *copyleft*:
-"""
-
-# ╔═╡ 7b798090-c27c-4deb-bd5f-8b59b1fabc45
-html"""
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licença Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />O trabalho <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">Máquinas síncronas trifásicas: gerador síncrono de polos lisos, Exercício 2 (resolução computacional)</span> de <a xmlns:cc="http://creativecommons.org/ns#" href="https://ricardo-luis.github.io/me2" property="cc:attributionName" rel="cc:attributionURL">Ricardo Luís</a> está licenciado com uma Licença <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons - Atribuição-CompartilhaIgual 4.0 Internacional</a>.<br />Baseado no trabalho disponível em <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/AC_machines_Ex2.jl" rel="dct:source">https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/AC_machines_Ex2.jl</a>.
-"""
-
-# ╔═╡ 3e8fda22-107d-48f3-86cd-ab24f1f2f1e1
-md"""
-As suas [questões](https://github.com/Ricardo-Luis/me2/issues) e/ou [sugestões de melhoria](https://github.com/Ricardo-Luis/me2/pulls) sobre este *notebook* são bem-vindas.
-
-Para citar o conteúdo deste *notebook*, utilize o seguinte texto:
-"""
-
-# ╔═╡ 68561e10-85b3-4c28-bee1-f36a96ddf619
-md"""
-> **Ricardo Luís**. (2022). Documentos computacionais sobre Máquinas Elétricas II [coleção de *notebooks* de suporte a Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: [https://ricardo-luis.github.io/me2](https://ricardo-luis.github.io/me2)
-"""
+# ╔═╡ 5f968acf-aab4-4480-8f9a-4f68c72a655a
+TableOfContents(title="Índice")
 
 # ╔═╡ 6456ddfc-577c-48e3-81cc-5907183337c7
 md"""
 ---
 """
 
-# ╔═╡ 3cfbc867-8d3f-42d3-954e-5a3572d9ac68
-ThreeColumn(md" $$\text{Text content:}$$ [![](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)", md" $$\text{Code snippets:}$$ [$$\text{MIT License}$$](https://www.tldrlegal.com/l/mit)", md"[$$\text{Copyright } © \text{ 2022 Ricardo Luís}$$](https://ricardo-luis.github.io/me2/)")
+# ╔═╡ 5e542e99-c1c3-4a7e-9556-73d752728bb5
+ThreeColumn(md"Text content: [![](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)", md" $(Resource(julia_logo, :height => 15)) `code`: [`MIT License`](https://www.tldrlegal.com/l/mit)", md"[$$© \text{ 2022 Ricardo Luís}$$](https://ricardo-luis.github.io/me2/)")
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -875,9 +957,9 @@ TypedTables = "9d95f2ec-7b3d-5a63-8d20-e2491e220bb9"
 [compat]
 BasicInterpolators = "~0.6.5"
 EasyFit = "~0.5.5"
-Plots = "~1.31.7"
-PlutoTeachingTools = "~0.1.7"
-PlutoUI = "~0.7.40"
+Plots = "~1.34.0"
+PlutoTeachingTools = "~0.2.3"
+PlutoUI = "~0.7.43"
 TypedTables = "~1.4.1"
 """
 
@@ -887,7 +969,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.8.0"
 manifest_format = "2.0"
-project_hash = "ec56d4175651c3238c0b544f77886f61b3a95673"
+project_hash = "904a2862724fe8cb4ffa449ed961614bd34cee52"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -907,9 +989,9 @@ version = "1.1.1"
 
 [[deps.ArrayInterfaceCore]]
 deps = ["LinearAlgebra", "SparseArrays", "SuiteSparse"]
-git-tree-sha1 = "9cf64cccb109e9c567d82afd3bb24e83cae5e70e"
+git-tree-sha1 = "5bb0f8292405a516880a3809954cb832ae7a31c5"
 uuid = "30b0a656-2188-435a-8636-2ec0e6a096e2"
-version = "0.1.18"
+version = "0.1.20"
 
 [[deps.Artifacts]]
 uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
@@ -928,6 +1010,11 @@ deps = ["LinearAlgebra", "Memoize", "Random"]
 git-tree-sha1 = "56e59d20a2dfafdfe681c372ed67200efa43ad88"
 uuid = "26cce99e-4866-4b6d-ab74-862489e035e0"
 version = "0.6.5"
+
+[[deps.BitFlags]]
+git-tree-sha1 = "84259bb6172806304b9101094a7cc4bc6f56dbc6"
+uuid = "d1d4a3ce-64b1-5f1a-9ba4-7e7e69966f35"
+version = "0.1.5"
 
 [[deps.Bzip2_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -949,9 +1036,9 @@ version = "0.5.1"
 
 [[deps.ChainRulesCore]]
 deps = ["Compat", "LinearAlgebra", "SparseArrays"]
-git-tree-sha1 = "80ca332f6dcb2508adba68f22f551adb2d00a624"
+git-tree-sha1 = "e7ff6cadf743c098e08fca25c91103ee4303c9bb"
 uuid = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
-version = "1.15.3"
+version = "1.15.6"
 
 [[deps.ChangesOfVariables]]
 deps = ["ChainRulesCore", "LinearAlgebra", "Test"]
@@ -1024,9 +1111,9 @@ uuid = "d38c429a-6771-53c6-b99e-75d170b6e991"
 version = "0.6.2"
 
 [[deps.DataAPI]]
-git-tree-sha1 = "fb5f5316dd3fd4c5e7c30a24d50643b73e37cd40"
+git-tree-sha1 = "1106fa7e1256b402a86a8e7b15c00c85036fef49"
 uuid = "9a962f9c-6df0-11e9-0e5d-c546b8b5ee8a"
-version = "1.10.0"
+version = "1.11.0"
 
 [[deps.DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
@@ -1060,10 +1147,10 @@ uuid = "85a47980-9c8c-11e8-2b9f-f7ca1fa99fb4"
 version = "0.3.24"
 
 [[deps.DiffResults]]
-deps = ["StaticArrays"]
-git-tree-sha1 = "c18e98cba888c6c25d1c3b048e4b3380ca956805"
+deps = ["StaticArraysCore"]
+git-tree-sha1 = "782dd5f4561f5d267313f23853baaaa4c52ea621"
 uuid = "163ba53b-c6d8-5494-b064-1a9d43ac40c5"
-version = "1.0.3"
+version = "1.1.0"
 
 [[deps.DiffRules]]
 deps = ["IrrationalConstants", "LogExpFunctions", "NaNMath", "Random", "SpecialFunctions"]
@@ -1077,9 +1164,9 @@ uuid = "8ba89e20-285c-5b6f-9357-94700520ee1b"
 
 [[deps.Distributions]]
 deps = ["ChainRulesCore", "DensityInterface", "FillArrays", "LinearAlgebra", "PDMats", "Printf", "QuadGK", "Random", "SparseArrays", "SpecialFunctions", "Statistics", "StatsBase", "StatsFuns", "Test"]
-git-tree-sha1 = "8579b5cdae93e55c0cff50fbb0c2d1220efd5beb"
+git-tree-sha1 = "0d7d213133d948c56e8c2d9f4eab0293491d8e4a"
 uuid = "31c24e10-a181-5473-b8eb-7969acd0382f"
-version = "0.25.70"
+version = "0.25.75"
 
 [[deps.DocStringExtensions]]
 deps = ["LibGit2"]
@@ -1098,12 +1185,6 @@ git-tree-sha1 = "5837a837389fccf076445fce071c8ddaea35a566"
 uuid = "fa6b7ba4-c1ee-5f82-b5fc-ecf0adba8f74"
 version = "0.6.8"
 
-[[deps.EarCut_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "3f3a2501fa7236e9b911e0f7a588c657e822bb6d"
-uuid = "5ae413db-bbd1-5e63-b57d-d24a61df00f5"
-version = "2.2.3+0"
-
 [[deps.EasyFit]]
 deps = ["Interpolations", "LsqFit", "Parameters", "Statistics"]
 git-tree-sha1 = "a48d552289581ce1f52790dec96f7c2f70882ec1"
@@ -1115,11 +1196,6 @@ deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "bad72f730e9e91c08d9427d5e8db95478a3c323d"
 uuid = "2e619515-83b5-522b-bb60-26c02a35a201"
 version = "2.4.8+0"
-
-[[deps.Extents]]
-git-tree-sha1 = "5e1e4c53fa39afe63a7d356e30452249365fba99"
-uuid = "411431e0-e8b7-467b-b5e0-f676ba4f2910"
-version = "0.1.1"
 
 [[deps.FFMPEG]]
 deps = ["FFMPEG_jll"]
@@ -1138,9 +1214,9 @@ uuid = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
 
 [[deps.FillArrays]]
 deps = ["LinearAlgebra", "Random", "SparseArrays", "Statistics"]
-git-tree-sha1 = "3399bbad4c9e9a2fd372a54d7b67b3c7121b6402"
+git-tree-sha1 = "87519eb762f85534445f5cda35be12e32759ee14"
 uuid = "1a297f60-69ca-5386-bcde-b61e274b549b"
-version = "0.13.3"
+version = "0.13.4"
 
 [[deps.FiniteDiff]]
 deps = ["ArrayInterfaceCore", "LinearAlgebra", "Requires", "Setfield", "SparseArrays", "StaticArrays"]
@@ -1196,27 +1272,15 @@ version = "3.3.8+0"
 
 [[deps.GR]]
 deps = ["Base64", "DelimitedFiles", "GR_jll", "HTTP", "JSON", "Libdl", "LinearAlgebra", "Pkg", "Printf", "Random", "RelocatableFolders", "Serialization", "Sockets", "Test", "UUIDs"]
-git-tree-sha1 = "cf0a9940f250dc3cb6cc6c6821b4bf8a4286cf9c"
+git-tree-sha1 = "0ac6f27e784059c68b987f42b909ade0bcfabe69"
 uuid = "28b8d3ca-fb5f-59d9-8090-bfdbd6d07a71"
-version = "0.66.2"
+version = "0.68.0"
 
 [[deps.GR_jll]]
 deps = ["Artifacts", "Bzip2_jll", "Cairo_jll", "FFMPEG_jll", "Fontconfig_jll", "GLFW_jll", "JLLWrappers", "JpegTurbo_jll", "Libdl", "Libtiff_jll", "Pixman_jll", "Pkg", "Qt5Base_jll", "Zlib_jll", "libpng_jll"]
-git-tree-sha1 = "2d908286d120c584abbe7621756c341707096ba4"
+git-tree-sha1 = "0eb5ef6f270fb70c2d83ee3593f56d02ed6fc7ff"
 uuid = "d2c73de3-f751-5644-a686-071e5b155ba9"
-version = "0.66.2+0"
-
-[[deps.GeoInterface]]
-deps = ["Extents"]
-git-tree-sha1 = "fb28b5dc239d0174d7297310ef7b84a11804dfab"
-uuid = "cf35fbd7-0cd7-5166-be24-54bfbe79505f"
-version = "1.0.1"
-
-[[deps.GeometryBasics]]
-deps = ["EarCut_jll", "GeoInterface", "IterTools", "LinearAlgebra", "StaticArrays", "StructArrays", "Tables"]
-git-tree-sha1 = "a7a97895780dab1085a97769316aa348830dc991"
-uuid = "5c1252a2-5f33-56bf-86c9-59e7332b4326"
-version = "0.4.3"
+version = "0.68.0+0"
 
 [[deps.Gettext_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "Libdl", "Libiconv_jll", "Pkg", "XML2_jll"]
@@ -1242,10 +1306,10 @@ uuid = "42e2da0e-8278-4e71-bc24-59509adca0fe"
 version = "1.0.2"
 
 [[deps.HTTP]]
-deps = ["Base64", "CodecZlib", "Dates", "IniFile", "Logging", "LoggingExtras", "MbedTLS", "NetworkOptions", "Random", "SimpleBufferStream", "Sockets", "URIs", "UUIDs"]
-git-tree-sha1 = "59ba44e0aa49b87a8c7a8920ec76f8afe87ed502"
+deps = ["Base64", "CodecZlib", "Dates", "IniFile", "Logging", "LoggingExtras", "MbedTLS", "NetworkOptions", "OpenSSL", "Random", "SimpleBufferStream", "Sockets", "URIs", "UUIDs"]
+git-tree-sha1 = "4abede886fcba15cd5fd041fef776b230d004cee"
 uuid = "cd3eb016-35fb-5094-929b-558a96fad6f3"
-version = "1.3.3"
+version = "1.4.0"
 
 [[deps.HarfBuzz_jll]]
 deps = ["Artifacts", "Cairo_jll", "Fontconfig_jll", "FreeType2_jll", "Glib_jll", "Graphite2_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Pkg"]
@@ -1308,15 +1372,16 @@ git-tree-sha1 = "7fd44fd4ff43fc60815f8e764c0f352b83c49151"
 uuid = "92d709cd-6900-40b7-9082-c6be49f344b6"
 version = "0.1.1"
 
-[[deps.IterTools]]
-git-tree-sha1 = "fa6287a4469f5e048d763df38279ee729fbd44e5"
-uuid = "c8e1da08-722c-5040-9ed9-7db0dc04731e"
-version = "1.4.0"
-
 [[deps.IteratorInterfaceExtensions]]
 git-tree-sha1 = "a3f24677c21f5bbe9d2a714f95dcd58337fb2856"
 uuid = "82899510-4779-5014-852e-03e436cf321d"
 version = "1.0.0"
+
+[[deps.JLFzf]]
+deps = ["Pipe", "REPL", "Random", "fzf_jll"]
+git-tree-sha1 = "f377670cda23b6b7c1c0b3893e37451c5c1a2185"
+uuid = "1019f520-868f-41f5-a6de-eb00f4b6a39c"
+version = "0.1.5"
 
 [[deps.JLLWrappers]]
 deps = ["Preferences"]
@@ -1366,10 +1431,10 @@ uuid = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 version = "1.3.0"
 
 [[deps.Latexify]]
-deps = ["Formatting", "InteractiveUtils", "LaTeXStrings", "MacroTools", "Markdown", "Printf", "Requires"]
-git-tree-sha1 = "1a43be956d433b5d0321197150c2f94e16c0aaa0"
+deps = ["Formatting", "InteractiveUtils", "LaTeXStrings", "MacroTools", "Markdown", "OrderedCollections", "Printf", "Requires"]
+git-tree-sha1 = "ab9aa169d2160129beb241cb2750ca499b4e90e9"
 uuid = "23fbe1c1-3f47-55db-b15f-69d7ec21a316"
-version = "0.15.16"
+version = "0.15.17"
 
 [[deps.LibCURL]]
 deps = ["LibCURL_jll", "MozillaCACerts_jll"]
@@ -1484,9 +1549,9 @@ uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
 
 [[deps.MbedTLS]]
 deps = ["Dates", "MbedTLS_jll", "MozillaCACerts_jll", "Random", "Sockets"]
-git-tree-sha1 = "ae6676d5f576ccd21b6789c2cbe2ba24fcc8075d"
+git-tree-sha1 = "6872f9594ff273da6d13c7c1a1545d5a8c7d0c1c"
 uuid = "739be429-bea8-5141-9913-cc70e7f3736d"
-version = "1.1.5"
+version = "1.1.6"
 
 [[deps.MbedTLS_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -1555,6 +1620,12 @@ deps = ["Artifacts", "Libdl"]
 uuid = "05823500-19ac-5b8b-9628-191a04bc5112"
 version = "0.8.1+0"
 
+[[deps.OpenSSL]]
+deps = ["BitFlags", "Dates", "MozillaCACerts_jll", "OpenSSL_jll", "Sockets"]
+git-tree-sha1 = "fa44e6aa7dfb963746999ca8129c1ef2cf1c816b"
+uuid = "4d8831e6-92b7-49fb-bdf8-b643e874388c"
+version = "1.1.1"
+
 [[deps.OpenSSL_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "e60321e3f2616584ff98f0a4f18d98ae6f89bbb3"
@@ -1608,6 +1679,11 @@ git-tree-sha1 = "3d5bf43e3e8b412656404ed9466f1dcbf7c50269"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
 version = "2.4.0"
 
+[[deps.Pipe]]
+git-tree-sha1 = "6842804e7867b115ca9de748a0cf6b364523c16d"
+uuid = "b98c9c47-44ae-5843-9183-064241ee97a0"
+version = "1.3.0"
+
 [[deps.Pixman_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "b4f5d02549a10e20780a24fce72bea96b6329e29"
@@ -1626,16 +1702,16 @@ uuid = "ccf2f8ad-2431-5c83-bf29-c5338b663b6a"
 version = "3.0.0"
 
 [[deps.PlotUtils]]
-deps = ["ColorSchemes", "Colors", "Dates", "Printf", "Random", "Reexport", "Statistics"]
-git-tree-sha1 = "9888e59493658e476d3073f1ce24348bdc086660"
+deps = ["ColorSchemes", "Colors", "Dates", "Printf", "Random", "Reexport", "SnoopPrecompile", "Statistics"]
+git-tree-sha1 = "21303256d239f6b484977314674aef4bb1fe4420"
 uuid = "995b91a9-d308-5afd-9ec6-746e21dbc043"
-version = "1.3.0"
+version = "1.3.1"
 
 [[deps.Plots]]
-deps = ["Base64", "Contour", "Dates", "Downloads", "FFMPEG", "FixedPointNumbers", "GR", "GeometryBasics", "JSON", "LaTeXStrings", "Latexify", "LinearAlgebra", "Measures", "NaNMath", "Pkg", "PlotThemes", "PlotUtils", "Printf", "REPL", "Random", "RecipesBase", "RecipesPipeline", "Reexport", "Requires", "Scratch", "Showoff", "SparseArrays", "Statistics", "StatsBase", "UUIDs", "UnicodeFun", "Unzip"]
-git-tree-sha1 = "a19652399f43938413340b2068e11e55caa46b65"
+deps = ["Base64", "Contour", "Dates", "Downloads", "FFMPEG", "FixedPointNumbers", "GR", "JLFzf", "JSON", "LaTeXStrings", "Latexify", "LinearAlgebra", "Measures", "NaNMath", "Pkg", "PlotThemes", "PlotUtils", "Printf", "REPL", "Random", "RecipesBase", "RecipesPipeline", "Reexport", "RelocatableFolders", "Requires", "Scratch", "Showoff", "SnoopPrecompile", "SparseArrays", "Statistics", "StatsBase", "UUIDs", "UnicodeFun", "Unzip"]
+git-tree-sha1 = "6fae75c2178132582ea261d39f6da50cdd09c3c6"
 uuid = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
-version = "1.31.7"
+version = "1.34.0"
 
 [[deps.PlutoHooks]]
 deps = ["InteractiveUtils", "Markdown", "UUIDs"]
@@ -1651,15 +1727,15 @@ version = "0.1.5"
 
 [[deps.PlutoTeachingTools]]
 deps = ["Downloads", "HypertextLiteral", "LaTeXStrings", "Latexify", "Markdown", "PlutoLinks", "PlutoUI", "Random"]
-git-tree-sha1 = "67c917d383c783aeadd25babad6625b834294b30"
+git-tree-sha1 = "d8be3432505c2febcea02f44e5f4396fae017503"
 uuid = "661c6b06-c737-4d37-b85c-46df65de6f69"
-version = "0.1.7"
+version = "0.2.3"
 
 [[deps.PlutoUI]]
 deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "Markdown", "Random", "Reexport", "UUIDs"]
-git-tree-sha1 = "a602d7b0babfca89005da04d89223b867b55319f"
+git-tree-sha1 = "2777a5c2c91b3145f5aa75b61bb4c2eb38797136"
 uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
-version = "0.7.40"
+version = "0.7.43"
 
 [[deps.Preferences]]
 deps = ["TOML"]
@@ -1715,9 +1791,9 @@ version = "1.2.2"
 
 [[deps.RelocatableFolders]]
 deps = ["SHA", "Scratch"]
-git-tree-sha1 = "22c5201127d7b243b9ee1de3b43c408879dff60f"
+git-tree-sha1 = "90bc7a7c96410424509e4263e277e43250c05691"
 uuid = "05181044-ff0b-4ac5-8273-598c1e38db00"
-version = "0.3.0"
+version = "1.0.0"
 
 [[deps.Requires]]
 deps = ["UUIDs"]
@@ -1777,6 +1853,11 @@ git-tree-sha1 = "874e8867b33a00e784c8a7e4b60afe9e037b74e1"
 uuid = "777ac1f9-54b0-4bf8-805c-2214025038e7"
 version = "1.1.0"
 
+[[deps.SnoopPrecompile]]
+git-tree-sha1 = "f604441450a3c0569830946e5b33b78c928e1a85"
+uuid = "66db9d55-30c0-4569-8b51-7e840670fc0c"
+version = "1.0.1"
+
 [[deps.Sockets]]
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
 
@@ -1804,14 +1885,14 @@ version = "1.2.2"
 
 [[deps.StaticArrays]]
 deps = ["LinearAlgebra", "Random", "StaticArraysCore", "Statistics"]
-git-tree-sha1 = "dfec37b90740e3b9aa5dc2613892a3fc155c3b42"
+git-tree-sha1 = "2189eb2c1f25cb3f43e5807f26aa864052e50c17"
 uuid = "90137ffa-7385-5640-81b9-e52037218182"
-version = "1.5.6"
+version = "1.5.8"
 
 [[deps.StaticArraysCore]]
-git-tree-sha1 = "ec2bd695e905a3c755b33026954b119ea17f2d22"
+git-tree-sha1 = "6b7ba252635a5eff6a0b0664a41ee140a1c9e72a"
 uuid = "1e83bf80-4336-4d27-bf5d-d5a4f845583c"
-version = "1.3.0"
+version = "1.4.0"
 
 [[deps.Statistics]]
 deps = ["LinearAlgebra", "SparseArrays"]
@@ -1835,12 +1916,6 @@ git-tree-sha1 = "5783b877201a82fc0014cbf381e7e6eb130473a4"
 uuid = "4c63d2b9-4356-54db-8cca-17b64c39e42c"
 version = "1.0.1"
 
-[[deps.StructArrays]]
-deps = ["Adapt", "DataAPI", "StaticArraysCore", "Tables"]
-git-tree-sha1 = "8c6ac65ec9ab781af05b08ff305ddc727c25f680"
-uuid = "09ab397b-f2b6-538f-b94a-2f83cf4a842a"
-version = "0.6.12"
-
 [[deps.SuiteSparse]]
 deps = ["Libdl", "LinearAlgebra", "Serialization", "SparseArrays"]
 uuid = "4607b0f0-06f3-5cda-b6b1-a6196a1729e9"
@@ -1858,9 +1933,9 @@ version = "1.0.1"
 
 [[deps.Tables]]
 deps = ["DataAPI", "DataValueInterfaces", "IteratorInterfaceExtensions", "LinearAlgebra", "OrderedCollections", "TableTraits", "Test"]
-git-tree-sha1 = "5ce79ce186cc678bbb5c5681ca3379d1ddae11a1"
+git-tree-sha1 = "2d7164f7b8a066bcfa6224e67736ce0eb54aef5b"
 uuid = "bd369af6-aec1-5ad0-b16a-f7cc5008161c"
-version = "1.7.0"
+version = "1.9.0"
 
 [[deps.Tar]]
 deps = ["ArgTools", "SHA"]
@@ -1918,9 +1993,9 @@ uuid = "1cfade01-22cf-5700-b092-accc4b62d6e1"
 version = "0.4.1"
 
 [[deps.Unzip]]
-git-tree-sha1 = "34db80951901073501137bdbc3d5a8e7bbd06670"
+git-tree-sha1 = "ca0969166a028236229f63514992fc073799bb78"
 uuid = "41fe7b60-77ed-43a1-b4f0-825fd5a5650d"
-version = "0.1.2"
+version = "0.2.0"
 
 [[deps.Wayland_jll]]
 deps = ["Artifacts", "Expat_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Pkg", "XML2_jll"]
@@ -2089,6 +2164,12 @@ git-tree-sha1 = "e45044cd873ded54b6a5bac0eb5c971392cf1927"
 uuid = "3161d3a3-bdf6-5164-811a-617609db77b4"
 version = "1.5.2+0"
 
+[[deps.fzf_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
+git-tree-sha1 = "868e669ccb12ba16eaf50cb2957ee2ff61261c56"
+uuid = "214eeab7-80f7-51ab-84ad-2988db7cef09"
+version = "0.29.0+0"
+
 [[deps.libaom_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "3a2ea60308f0996d26f1e5354e10c24e9ef905d4"
@@ -2154,25 +2235,27 @@ version = "1.4.1+0"
 """
 
 # ╔═╡ Cell order:
+# ╟─1aceb22f-57fe-4428-bbd7-3410a10e269e
 # ╟─0c910bbe-9eb7-46cc-81c1-f9ccd460976b
 # ╟─fd49ed4e-b3ab-4b3a-88b2-84f3edcea565
 # ╟─c064e55c-6924-49b7-abbc-385a081c57b2
-# ╟─12222dcc-7102-445a-801e-85b11b2b96c3
 # ╟─01d6ccf1-a046-4386-95b9-7a8437e6bc48
-# ╠═ba6e7ba4-1f8c-4756-a1d6-02f0c4fb2e84
-# ╟─2653c6fc-3c84-4e08-a53b-d0d2d804f140
-# ╟─339644c3-e4be-4181-a914-a1317e74f06c
-# ╟─b3901cdf-5f76-4649-9de5-865a1e67e9d3
 # ╟─aa438d59-98d7-41b6-b34d-aa55220cf04f
 # ╟─57972b14-d0eb-49f2-a8fe-fbfa25eb2f43
 # ╟─dcfb10ac-3a34-477f-ae1e-6a4b42fdc0d2
-# ╠═5d618284-7f40-4d33-94a1-829407bd5f47
+# ╟─5d618284-7f40-4d33-94a1-829407bd5f47
+# ╟─07eeed4a-6a40-4585-b04f-26da0157fe2e
+# ╟─1eb4379f-2d29-4dea-b6c5-cd2f81ed8381
+# ╟─184d5409-76fa-4970-9da7-6d8c8bd79713
+# ╟─f8de4a5c-64a2-49c4-88e2-c26c843b1fc1
 # ╟─39721ee5-b4f8-47ed-ae4f-0865952ebd28
 # ╟─3010fa73-fdb8-4ad9-94dc-45db49ae7fcf
 # ╟─f60d6cdd-7ff4-4a00-b2aa-a1440234ec6d
-# ╟─e08c8f92-da7a-4ac8-bc4b-2c19aa014403
+# ╟─cb2b0eb9-2037-4b45-9038-b2f6cd7a16cd
+# ╟─127a7dbf-88fe-4b28-a265-7bf315850497
 # ╟─c387e50c-5aac-4901-b1f3-51b690c38a56
 # ╟─dfa54345-bcae-4350-aa43-72cd62b83d65
+# ╟─59b3486d-61cd-43ac-ae1c-4bd04ab5dd40
 # ╟─eb5f4190-17a0-4bac-b2a2-1d35622f3d2c
 # ╟─fce78f7b-dcdc-4ae3-918d-622db2f27269
 # ╟─6fef9e1c-e321-4ef8-9140-dc4dbfe49936
@@ -2185,6 +2268,7 @@ version = "1.4.1+0"
 # ╟─60cc12ac-6fe6-439b-a149-39ffa704ba8b
 # ╠═a41a8eeb-c2bf-4025-8a91-a5654ba69ca7
 # ╠═fd40f95e-9754-47d7-83a5-3e166947ecb7
+# ╟─ad18482b-6061-4e3e-b09c-0fa52ba1b6c4
 # ╟─df5bc5cc-9d9d-41d7-9956-a5f9af31c4cf
 # ╟─13d6e0d9-2cb9-4125-a406-c4caa0d63719
 # ╟─3b9e9b0e-2805-4d48-8033-2eda3ee606e0
@@ -2198,14 +2282,14 @@ version = "1.4.1+0"
 # ╟─b32d55d7-80b2-45f1-abaf-ef8f6958e980
 # ╠═f0132080-ad3c-47d1-b0e3-c9c7994c072f
 # ╟─71a60d6f-1527-4537-952d-b490af18a935
-# ╠═6a7b7432-cb54-445a-aa39-33a13fb958ba
+# ╟─6a7b7432-cb54-445a-aa39-33a13fb958ba
 # ╠═5bcefcd9-f30e-4b40-a1f0-b66ff862d963
-# ╠═81298eb8-b548-42aa-9fea-fa502482578b
+# ╟─81298eb8-b548-42aa-9fea-fa502482578b
 # ╟─1931180b-424d-43ba-af25-61e84faf0eaf
 # ╟─7e48b1e0-b66c-4773-9189-b72e931b8520
-# ╠═df08b5c7-d63b-430d-8869-a994ed85b73c
+# ╟─df08b5c7-d63b-430d-8869-a994ed85b73c
 # ╟─0d8c4c17-1294-47ca-a993-c31099ef4640
-# ╟─07eeed4a-6a40-4585-b04f-26da0157fe2e
+# ╟─8358d4e1-09c2-4467-b0fa-26fc9a882e9c
 # ╟─66ada8ac-6556-4d18-9cf3-cbdbf3f9bc69
 # ╟─01e08f32-9f91-41f9-b022-ad877864a784
 # ╟─d12d08d6-4c4c-4afc-b4e5-970f86a440e5
@@ -2218,10 +2302,9 @@ version = "1.4.1+0"
 # ╠═4cda0d79-6a76-4529-b70e-4eb0bf9c2451
 # ╟─4643e926-67e5-4ac5-a332-1895b992b981
 # ╠═0865009d-6d80-452b-b9e5-74b424f9b3c3
-# ╠═361b5bbe-2fcd-4f96-8488-c52d9b2dbea5
+# ╟─361b5bbe-2fcd-4f96-8488-c52d9b2dbea5
 # ╠═863fe345-3a98-46d6-9112-78ee18635ffe
 # ╟─bf4807d5-6fbb-43bc-9be3-475b2ad6e0f6
-# ╠═02cc64b1-79d8-44e9-b318-855fc77c86dc
 # ╠═ad8fdc0f-4059-4bec-98a5-8b38b5a17fd0
 # ╠═5d25244c-7d05-43af-a6a5-69fdb52a253e
 # ╠═901eaef2-2cff-4131-b19c-b43a88b35b34
@@ -2251,36 +2334,36 @@ version = "1.4.1+0"
 # ╟─6c2bab0b-4785-413b-a851-0c0ab06c73a4
 # ╟─1e3c4060-5d78-4159-bb2d-caf158d9a32d
 # ╠═830796ba-f8d6-4843-9297-e76492589d49
+# ╟─5ea61cf4-4f87-43ef-8556-f37ea60d2515
 # ╟─c870e56a-cc10-4f85-9767-af46d9845b6a
+# ╟─d9063387-a1d9-44e5-81e8-9dd4111ad72a
 # ╠═24331be7-d705-41e9-925a-ec76b80fa38f
+# ╟─36ce1f19-59f6-4595-a75a-22f519e326d9
 # ╟─c674d531-be5a-45b6-b5be-480753f0135f
 # ╟─e40a1b59-ed60-4081-afbf-661373b8b3fa
 # ╟─28563a65-dfbd-4143-a0ec-772e553a3fb9
 # ╠═e12e7cc3-abe6-4f51-a8b0-9254dbade011
-# ╠═291e034f-a119-4c9b-8a50-4a35cd54e055
-# ╟─6fcc30b8-08bd-4331-a6cd-032d2eaf4dae
-# ╟─dd826725-e976-4e34-8b17-8f8acd932d1b
+# ╟─291e034f-a119-4c9b-8a50-4a35cd54e055
 # ╟─c53871d4-c739-4dcf-ad6d-c5dced86c208
 # ╟─83d8e64c-e9ab-4065-a056-f189e30e149c
 # ╟─5ab45915-9446-4583-a7b0-2ff97a5808f4
 # ╟─0ec4b965-80c4-4b40-925a-f3dcb2fd0115
-# ╠═e7aae6a9-1fa7-48a1-9b11-8e60c69cf9c9
+# ╟─e7aae6a9-1fa7-48a1-9b11-8e60c69cf9c9
+# ╟─5dded0ab-c093-4e14-a2f2-de5d3506d171
+# ╟─0b42e250-90d9-4b97-8fb6-0a7a896b92e5
 # ╟─e4d17d82-b7f0-4070-9177-e6a1cebb4c24
-# ╠═7787b512-37e0-4c2e-8d43-88433ce6c764
+# ╟─7787b512-37e0-4c2e-8d43-88433ce6c764
+# ╟─4cbd2235-074d-4374-99c8-f290215b1640
+# ╟─46a23d85-70f0-4f15-9a76-8a3701a82183
 # ╟─8495592a-9619-4e2c-97fb-ef9f55f29f4d
 # ╟─7ec2f5b9-5779-4f95-979d-96e23e742d5a
-# ╟─cd3fb263-b2e7-4f2a-8603-117b51bcf25c
 # ╟─6bd294df-005b-4979-b2ee-39922b9223b7
 # ╠═e89303b7-3dbb-452c-bd71-ddaac5d22dc4
+# ╟─7ad8f4c0-360b-4129-a930-b7e953813154
 # ╟─6fbbee2e-9055-41cc-878b-6b70e3589c1f
-# ╠═7ad8f4c0-360b-4129-a930-b7e953813154
 # ╟─2d15cc51-918d-4297-bfb1-b5abbebdda9d
-# ╟─26d6c46c-a677-4a99-b851-543793a278dc
-# ╟─3627d7c0-014b-47b8-ac4c-9ddb16df5380
-# ╟─7b798090-c27c-4deb-bd5f-8b59b1fabc45
-# ╟─3e8fda22-107d-48f3-86cd-ab24f1f2f1e1
-# ╟─68561e10-85b3-4c28-bee1-f36a96ddf619
+# ╠═5f968acf-aab4-4480-8f9a-4f68c72a655a
 # ╟─6456ddfc-577c-48e3-81cc-5907183337c7
-# ╟─3cfbc867-8d3f-42d3-954e-5a3572d9ac68
+# ╟─5e542e99-c1c3-4a7e-9556-73d752728bb5
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
