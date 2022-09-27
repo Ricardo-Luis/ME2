@@ -1,16 +1,17 @@
+https://github.com/Ricardo-Luis/me2/blob/main/notebooks/DC/Compound.GEN.Ex4.jl
 [
     {
         "title": "Máquina elétrica de corrente contínua",
         "contents": [
             {
-                "name": "[TP] Geradores de corrente contínua, exercício 2",
-                "notebook_path": "notebooks/DC/me2-tp-maq-dc-ex2.jl",
+                "name": "Gerador: exc. separada vs. shunt, Ex.2",
+                "notebook_path": "notebooks/DC/Separ.Shunt.GEN.Ex2.jl",
                 "video_id": "",
                 "preview_image_url": ""
             },
 	   {
-                "name": "[TP] Gerador de excitação composta, exercício 4",
-                "notebook_path": "notebooks/DC/me2-tp-maq-dc-ex4.jl",
+                "name": "Gerador compound, Ex.4",
+                "notebook_path": "notebooks/DC/Compound.GEN.Ex4.jl",
                 "video_id": "",
                 "preview_image_url": ""
             },
@@ -27,7 +28,7 @@
                 "preview_image_url": ""
             },
 	    {
-                "name": "[P] Ensaio back-to-back",
+                "name": "Ensaio back-to-back, lab.",
                 "notebook_path": "notebooks/DC/back2backlab.jl",
                 "video_id": "",
                 "preview_image_url": ""
