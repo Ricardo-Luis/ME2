@@ -424,8 +424,13 @@ _powered by Franklin.jl_
 """
 
 # ╔═╡ 9cb9559a-cbe4-4a4a-b974-cb9a3573f67d
-import Franklin
+begin
+	import Franklin
+	using NodeJS
+	run(`sudo $(npm_cmd()) install highlight.js`)
+end
 
+	
 # ╔═╡ 0e1a2d5b-16da-49e9-98b3-6f1202fd0fa1
 begin
 	current_dir = pwd()
