@@ -6,23 +6,26 @@
 
 **TODO list:**
 
-- [ ]  sobre notebooks... complemento aos el.tos de estudo (não substitui livro, apontamentos da aula, etc...)
-- [ ] Sobre notebooks em geral?! Ex:[Data Science Notebooks](https://datasciencenotebook.org/)
-    - [ ] *literate programming*; ciência reproduzível...
-- [ ] como utilizar os notebooks
-- [ ] Ferramentas utilizadas nos notebooks Pluto:
-    - [ ] Markdown (texto)
-    - [ ] $\LaTeX$ (equações)... não é necessário saber, Ex: [Online Equation Editor](https://www.codecogs.com/eqnedit.php)
+- sobre notebooks... complemento aos el.tos de estudo (não substitui livro, apontamentos da aula, etc...)
+- Sobre notebooks em geral?! Ex: [Data Science Notebooks](https://datasciencenotebook.org/)
+    - *literate programming*; ciência reproduzível
+- como abrir os notebooks:
+    - executar um notebook na cloud (Binder) raramente funciona! » Instalar Julia e Pluto (dentro do Julia)
+    - fazer download (notebook.jl) ou copiar URL colocado no topo do notebook: "GitHub URL | notebook" e colar no Pluto na barra de "Open a notebook"
+- Ferramentas utilizadas nos notebooks Pluto:
+    - Markdown (texto): em qualquer célula é intrepetada como texto Markdown, primindo no teclado "Ctrl" + "m"
+    - LaTeX (equações)... não é necessário saber Latex, Ex: [Online Equation Editor](https://www.codecogs.com/eqnedit.php)
     - [ ] [draw.io](https://app.diagrams.net/) (desenhos, esquemas, diagramas), disponíveis para reutilização
     - [ ] Julia (cálculo, gráficos); não requer especial conhecimento de programação; sintaxe muito idêntica ao MATLAB/Octave
     - [ ] Julia, aceita símbolos Unicode nas expressões de cálculo (grande vantagem), [Unicode Input](https://docs.julialang.org/en/v1/manual/unicode-input/)
     - [ ] PlutoUI (interactividade com o utilizador)
-- [ ] ...
+- Notebook reactivo: nas parcelas de código, o Pluto reconhece as dependências entre as células. Sempre que uma é alterada, todas as células que desta dependem são automaticamente atualizadas (como no Excel).
+- ...
 
 
 \
 ## A linguagem de programação Julia 
-[Julia](https://en.wikipedia.org/wiki/Julia_(programming_language)) é uma linguagem de programação de [alto nível](https://en.wikipedia.org/wiki/High-level_programming_language), [Dinâmica](https://en.wikipedia.org/wiki/Dynamic_programming_language) e de elevado desempenho adequada para [Computação científica](https://pt.wikipedia.org/wiki/Computa%C3%A7%C3%A3o_cient%C3%ADfica). Apresenta ótimas características para a construção de modelos matemáticos e de técnicas de simulação numérica, permitindo analisar e resolver problemas científicos e de engenharia, através do computador.
+[Julia](https://en.wikipedia.org/wiki/Julia_(programming_language)) é uma linguagem de programação de [alto nível](https://en.wikipedia.org/wiki/High-level_programming_language), [dinâmica](https://en.wikipedia.org/wiki/Dynamic_programming_language) e de elevado desempenho adequada para [computação científica](https://pt.wikipedia.org/wiki/Computa%C3%A7%C3%A3o_cient%C3%ADfica). Apresenta ótimas características para a construção de modelos matemáticos e de técnicas de simulação numérica, permitindo analisar e resolver problemas científicos e de engenharia, através do computador.
 
 Julia foi lançada em 2012 mantendo-se como uma linguagem de programação gratuita, multi-plataforma e *open source*.
 
@@ -39,7 +42,7 @@ Assim, os *notebooks* reactivos com Julia/Pluto podem fomentar a transparência,
 
 
 ## "Time to first plot"
-Julia é uma linguagem compilada *just-in-time* (JIT). Isso significa que o compilador irá gerar código binário conforme necessário. Assim, quando abrir/executar o *notebook* pela primeira vez, verificará que tem de aguardar algum tempo pela compilação do código Julia, dependendo da complexidade do mesmo e da capacidade de processamento do seu computador. Por exemplo, a biblioteca `Plots.jl` para realização de gráficos tem uma dimensão considerável e exige tempo de compilação. Esta latência na compilação de um programa Julia é conhecida por ["_Time to first plot"_](https://lwn.net/Articles/856819/) que teve melhorias significativas na versão 1.6 do Julia. Após a 1ª execução, apenas as alterações que realize (no código, nos dados, por interação) serão compiladas, pelo que verificará, a partir daí o [elevado desempenho](https://julialang.org/benchmarks/) da linguagem Julia.
+Julia é uma linguagem compilada *just-in-time* (JIT). Isso significa que o compilador irá gerar código binário conforme necessário. Assim, quando abrir/executar o *notebook* pela primeira vez, verificará que tem de aguardar algum tempo pela compilação do código Julia, dependendo da complexidade do mesmo e da capacidade de processamento do seu computador. Por exemplo, a biblioteca `Plots.jl` para realização de gráficos tem uma dimensão considerável e exige tempo de compilação. Esta latência na compilação de um programa Julia é conhecida por ["time to first plot"_](https://lwn.net/Articles/856819/), que teve melhorias significativas na versão 1.6 do Julia. Após a 1ª execução, apenas as alterações que realize (no código, nos dados, por interação) serão compiladas, pelo que verificará, a partir daí o [elevado desempenho](https://julialang.org/benchmarks/) da linguagem Julia.
 
 Assim, como sugestão, após abrir um dos *notebooks* de Máquinas Elétricas II no seu Julia/Pluto, pode fazer uma primeira leitura desse *notebook* na versão estática do mesmo, disponibilizada neste *website*, até a 1ª compilação/execução terminar, para então depois poder utilizá-lo.
 
