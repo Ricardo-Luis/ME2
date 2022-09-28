@@ -15,10 +15,10 @@
 - Ferramentas utilizadas nos notebooks Pluto:
     - Markdown (texto): em qualquer célula é intrepetada como texto Markdown, primindo no teclado "Ctrl" + "m"
     - LaTeX (equações)... não é necessário saber Latex, Ex: [Online Equation Editor](https://www.codecogs.com/eqnedit.php)
-    - [ ] [draw.io](https://app.diagrams.net/) (desenhos, esquemas, diagramas), disponíveis para reutilização
-    - [ ] Julia (cálculo, gráficos); não requer especial conhecimento de programação; sintaxe muito idêntica ao MATLAB/Octave
-    - [ ] Julia, aceita símbolos Unicode nas expressões de cálculo (grande vantagem), [Unicode Input](https://docs.julialang.org/en/v1/manual/unicode-input/)
-    - [ ] PlutoUI (interactividade com o utilizador)
+    - [draw.io](https://app.diagrams.net/) (desenhos, esquemas, diagramas), disponíveis para reutilização
+    - Julia (cálculo, gráficos); não requer especial conhecimento de programação; sintaxe muito idêntica ao MATLAB/Octave
+    - Julia, aceita símbolos Unicode nas expressões de cálculo (grande vantagem), [Unicode Input](https://docs.julialang.org/en/v1/manual/unicode-input/)
+    - PlutoUI (interactividade com o utilizador)
 - Notebook reactivo: nas parcelas de código, o Pluto reconhece as dependências entre as células. Sempre que uma é alterada, todas as células que desta dependem são automaticamente atualizadas (como no Excel).
 - ...
 
