@@ -6,18 +6,18 @@
 
 **TODO list:**
 
-- sobre notebooks... complemento aos el.tos de estudo (não substitui livro, apontamentos da aula, etc...)
+- sobre notebooks... complemento aos elementos de estudo (não substitui livro, apontamentos da aula, etc...)
 - Sobre notebooks em geral?! Ex: [Data Science Notebooks](https://datasciencenotebook.org/)
     - *literate programming*; ciência reproduzível
 - como abrir os notebooks:
     - executar um notebook na cloud (Binder) raramente funciona! » Instalar Julia e Pluto (dentro do Julia)
-    - fazer download (notebook.jl) ou copiar URL colocado no topo do notebook: "GitHub URL | notebook" e colar no Pluto na barra de "Open a notebook"
+    - fazer download (notebook.jl) ou **copiar URL colocado no topo do notebook: "GitHub URL | notebook" e colar no Pluto na barra de "Open a notebook"**
 - Ferramentas utilizadas nos notebooks Pluto:
-    - Markdown (texto): em qualquer célula é intrepetada como texto Markdown, primindo no teclado "Ctrl" + "m"
+    - Markdown (texto): em qualquer célula é intrepetada como texto markdown, premindo no teclado "Ctrl" + "m"
     - LaTeX (equações)... não é necessário saber Latex, Ex: [Online Equation Editor](https://www.codecogs.com/eqnedit.php)
     - [draw.io](https://app.diagrams.net/) (desenhos, esquemas, diagramas), disponíveis para reutilização
     - Julia (cálculo, gráficos); não requer especial conhecimento de programação; sintaxe muito idêntica ao MATLAB/Octave
-    - Julia, aceita símbolos Unicode nas expressões de cálculo (grande vantagem), [Unicode Input](https://docs.julialang.org/en/v1/manual/unicode-input/)
+    - Julia, aceita símbolos Unicode nas expressões de cálculo (grande vantagem, pois torna as expressões de cálculo muito semelhantes às equações escritas de forma matemática), [Unicode Input](https://docs.julialang.org/en/v1/manual/unicode-input/)
     - PlutoUI (interactividade com o utilizador)
 - Notebook reactivo: nas parcelas de código, o Pluto reconhece as dependências entre as células. Sempre que uma é alterada, todas as células que desta dependem são automaticamente atualizadas (como no Excel).
 - ...
