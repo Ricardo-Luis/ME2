@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.11
+# v0.19.12
 
 using Markdown
 using InteractiveUtils
@@ -22,7 +22,7 @@ begin
 end
 
 # ╔═╡ a4cc4ad7-04fd-41cf-b6a9-8cdede20b8af
-ThreeColumn(md"`ParallelGenerators.Ex6.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/ParallelGenerators.Ex6.jl)", md"`Last update: 27·09·2022`")
+ThreeColumn(md"`ParallelGenerators.Ex6.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/ParallelGenerators.Ex6.jl)", md"`Last update: 29·09·2022`")
 
 # ╔═╡ 7fdb306c-0729-40bb-bfc7-2ce826fe936b
 begin
@@ -46,7 +46,7 @@ $\textbf{MÁQUINAS ELÉTRICAS DE CORRENTE CONTÍNUA}$
 
 $\text{EXERCÍCIO 6}$ 
 
-$\textbf{Associação em paralelo de geradores DC}$
+$\textbf{Associação em paralelo de geradores}$
 ---
 """
 
@@ -79,7 +79,17 @@ md"""
 """
 
 # ╔═╡ 7b6d5dee-5fb8-4dc1-8557-370fc8698624
-H1=("Rcarga", @bind Rcarga PlutoUI.Slider(0.09:.0001:12, default=.143,show_value=true))
+H1=("Rcarga", @bind Rcarga PlutoUI.Slider(0.09:.0001:6, default=.1437,show_value=true))
+
+# ╔═╡ 5e6973c5-46ff-4960-9650-37ccc26b1ce7
+md"""
+Tensão e correntes da associação em paralelo de geradores, $(U, I_t, I_1, I_2)$:
+"""
+
+# ╔═╡ 37d9ba0b-0877-48dd-8163-53a5561de2bf
+md"""
+> **Nota:** mova o cursor sobre o gráfico e no topo encontra funções de visualização gráfica (*e.g.*, ampliação e linhas de apoio).
+"""
 
 # ╔═╡ d59f7a7e-10bb-43cb-9710-1a822afeeba9
 md"""
@@ -108,19 +118,18 @@ md"""
 # c) Complete:  💻
 
 \
-**“Em sobrecarga a máquina com __________ regulação, fornece __________ corrente.”**
 """
 
 # ╔═╡ 9de717e1-542a-4b2a-9bc1-4e4ea16fb3ee
 begin
-	O1=@bind pick1 MultiSelect(["maior", "menor", "melhor", "pior"])
-	O2=@bind pick2 MultiSelect(["menos", "mais", "mais ", "menos "])
+	O1=@bind pick1 MultiSelect(["maior", "menor", "melhor", "pior", "________"], default=["________"])
+	O2=@bind pick2 MultiSelect(["menos", "mais", "________"], default=["________"])
 	O1, O2
 end
 
 # ╔═╡ af4e9d09-cac3-4ca0-8735-70d3e358a1ad
 md"""
-Em sobrecarga a máquina com **$(pick1)** regulação, fornece **$(pick2)** corrente.
+**Em sobrecarga a máquina com $(pick1) regulação, fornece $(pick2) corrente.**
 """
 
 # ╔═╡ 24c80cb7-1e2e-4959-ac83-6a756749f2ec
@@ -141,7 +150,7 @@ Inclui também a extrapolação das características externas de cada gerador pa
 
 # ╔═╡ 1e4d5035-1f17-4d8f-aaf3-0c62ec511abc
 begin
-	U = -205.5:-1:-229.5
+	U = -205.5:-0.5:-229.5
 	I1int = Spline1D(-U₁, I, k=1, bc="extrapolate")
 	I2int = Spline1D(-U₂, I, k=1, bc="extrapolate")
 	I₁ = I1int(U)
@@ -168,11 +177,14 @@ begin
 	Ic2 = I2int(-Rcarga * Itotal)
 end;
 
+# ╔═╡ f215894b-6992-4fe2-a944-3763b5cc7e6b
+Rcarga*Itotal, Itotal, Ic1, Ic2
+
 # ╔═╡ 5d931a49-0a5e-4ad0-b726-9996ae7cbe7e
 begin
-	# alterar o parâmetro "ylims" para a fazer zoom ao gráfico!
-	plot(I,U₁, ylims=(00,250), markershape=:circle, markersize=3, 
-			linecolor=:blue, linewidth=0, title="U =f(I)", xlabel = "I(A)", ylabel="U(V)", framestyle = :origin, minorticks=5, label="U₁=f(I₁)")
+	plotly()	# backend para interatividade no gráfico
+	plot(I,U₁, ylims=(0,230), markershape=:circle, markersize=3, 
+			linecolor=:blue, linewidth=0, title="U =f(I)", xlabel = "I(A)", ylabel="U(V)", framestyle = :zerolines, minorticks=5, label="U₁=f(I₁)")
 	
 	plot!(I,U₂, markershape=:circle, markersize=3, linecolor=:red, 
 			linewidth=0, label="U₂=f(I₂)", legend=:bottomright)
@@ -184,9 +196,9 @@ begin
 	plot!(I₁+I₂, -U, xlims=(-500,2500), linewidth=2, markershape=:circle,
 			markersize=3, label="U=f(Iₜₒₜₐₗ)", xminorgrid=true)
 	
-	#plot!([210], seriestype = :hline, linestyle=:dash)
+	#plot!([215], seriestype = :hline, linestyle=:dash, linecolor=:pink)
 	
-	plot!(I₁+I₂, Rcarga.*(I₁+I₂), linewidth=3, label="reta carga")
+	plot!(I₁+I₂, Rcarga.*(I₁+I₂), linewidth=3, label="reta carga", lc=:green)
 	
 	plot!([Itotal], seriestype = :vline, linestyle=:dash, 
 			linecolor=:brown, label=:none)
@@ -1232,7 +1244,10 @@ version = "0.9.1+5"
 # ╟─4a8a67ff-2145-4e5f-9b54-708ad92bc12c
 # ╟─7e536108-d92f-4e5f-bd37-e48924ff9943
 # ╟─7b6d5dee-5fb8-4dc1-8557-370fc8698624
+# ╟─5e6973c5-46ff-4960-9650-37ccc26b1ce7
+# ╠═f215894b-6992-4fe2-a944-3763b5cc7e6b
 # ╟─5d931a49-0a5e-4ad0-b726-9996ae7cbe7e
+# ╟─37d9ba0b-0877-48dd-8163-53a5561de2bf
 # ╟─d59f7a7e-10bb-43cb-9710-1a822afeeba9
 # ╟─6f29a5d9-d0b4-4057-83c6-0abbd349463e
 # ╟─16f830b5-2160-43c4-8ebb-6b5cab2d5726
