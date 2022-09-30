@@ -13,7 +13,7 @@
     - executar um notebook na cloud (Binder) raramente funciona! » Instalar Julia e Pluto (dentro do Julia)
     - fazer download (notebook.jl) ou **copiar URL colocado no topo do notebook: "GitHub URL | notebook" e colar no Pluto na barra de "Open a notebook"**
 - Ferramentas utilizadas nos notebooks Pluto:
-    - Markdown (texto): qualquer célula pode ser intrepetada como texto, premindo no teclado "Ctrl" + "m"
+    - Markdown (texto): qualquer célula pode ser interpretada como texto, premindo no teclado "Ctrl" + "m"
     - LaTeX (equações)... não é necessário saber Latex, Ex: [Online Equation Editor](https://www.codecogs.com/eqnedit.php)
     - [draw.io](https://app.diagrams.net/) (desenhos, esquemas, diagramas), disponíveis para reutilização
     - Julia (cálculo, gráficos); não requer especial conhecimento de programação; sintaxe muito idêntica ao MATLAB/Octave
