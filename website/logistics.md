@@ -18,7 +18,7 @@
     - [draw.io](https://app.diagrams.net/) (desenhos, esquemas, diagramas), disponíveis para reutilização
     - Julia (cálculo, gráficos); não requer especial conhecimento de programação; sintaxe muito idêntica ao MATLAB/Octave
     - Julia, aceita símbolos Unicode nas expressões de cálculo (grande vantagem, pois torna as expressões de cálculo muito semelhantes às equações escritas de forma matemática), [Unicode Input](https://docs.julialang.org/en/v1/manual/unicode-input/)
-    - PlutoUI (interactividade com o utilizador)
+    - PlutoUI (interactividade com o utilizador), [How to Create Engaging Interactive Reactive Notebooks using PlutoUI, Pluto and Julia](https://www.youtube.com/watch?v=nkyvN7PXQZc&t=625s), YT vídeo (cerca de 25min.)
 - Notebook reactivo: nas parcelas de código, o Pluto reconhece as dependências entre as células. Sempre que uma é alterada, todas as células que desta dependem são automaticamente atualizadas (como no Excel).
 - ...
 
