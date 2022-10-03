@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.11
+# v0.19.12
 
 using Markdown
 using InteractiveUtils
@@ -22,7 +22,7 @@ begin
 end
 
 # ╔═╡ e227c53c-28a1-4d09-bf05-ba24236f613a
-ThreeColumn(md"`DCmotors.Ex7.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/DCmotors.Ex7.jl)", md"`Last update: 27·09·2022`")
+ThreeColumn(md"`DCmotors.Ex7.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/DCmotors.Ex7.jl)", md"`Last update: 03·10·2022`")
 
 # ╔═╡ c27a02b0-2646-4ef2-87a7-668a428ebd98
 begin
@@ -46,7 +46,7 @@ $\textbf{MÁQUINAS ELÉTRICAS DE CORRENTE CONTÍNUA}$
 
 $\text{EXERCÍCIO 7}$ 
 
-$\textbf{Motores DC}$
+$\textbf{Curvas características de motores}$
 ---
 """
 
@@ -79,7 +79,7 @@ md"""
 # ╔═╡ 8bde3ad9-2d03-4557-ab50-a89ac8e834a3
 md"""
 !!! nota
-	No enunciado original não é considerada a existência de reacção magnética do induzido, $$(ΔE=0\rm V)$$.  
+	No enunciado original não é considerada a existência de reação magnética do induzido, $$(ΔE=0\rm V)$$.  
 	No entanto, na versão *notebook* para que se possa verificar a influência de $$ΔE$$, nas características de funcionamento do motor DC, para os diferentes tipos de excitação, uma curva de $$ΔE=f(I_i)$$ é considerada como uma opção de análise."""
 
 # ╔═╡ 61238dc4-3c9d-4b59-9486-501988806c27
@@ -90,7 +90,9 @@ begin
 	Iᵢ=[0.0:15:120;]
 	#Iᵢ=[0.0, 15, 30, 45, 60, 75, 90, 105, 120]
 	ΔE=[0.0, 1.5, 4, 7.5, 12, 17, 23, 30.5, 40]*z
-	plot(Iᵢ, ΔE, title="ΔE=f(Iᵢ)", xlabel = "Iᵢ (A)", ylabel="ΔE (V)", xlims=(0,120), ylims=(0,40), framestyle = :origin, minorticks=5, label=:none, linewidth=2)
+	
+	plot(Iᵢ, ΔE, title="ΔE=f(Iᵢ)", xlabel = "Iᵢ (A)", ylabel="ΔE (V)", 
+			xlims=(0,120), ylims=(0,40), framestyle = :origin, minorticks=5, label=:none, linewidth=2)
 end
 
 # ╔═╡ 54da2314-4fa8-483b-9627-9e454c110f3d
@@ -106,7 +108,7 @@ condições nominais $$(U_n, I_n, n_n)$$**;
 # ╔═╡ d9e431c5-be62-40c8-b5d6-59d5808e4436
 md"""
 Para se ter a informação completa das condições nominais do motor, falta determinar o valor da corrente nominal, $$I_n$$.\
-Da chapa de características do motor conhecem-se a potência útil (potência mecânica) e rendimento nominais, $$P_u$$ e $$\eta_n$$, respectivamente, o que permite obter a potência absorvida, $$P_{ab}=U_nI_n$$. Assim: 
+Da chapa de características do motor conhecem-se a potência útil (potência mecânica) e rendimento nominais, $$P_u$$ e $$\eta_n$$, respetivamente, o que permite obter a potência absorvida, $$P_{ab}=U_nI_n$$. Assim: 
 """
 
 # ╔═╡ cde4847b-6c38-4bc6-a869-514774630c89
@@ -125,13 +127,13 @@ Calculando obtém-se $$I_n=$$ $(Iₙ)A
 # ╔═╡ d8d6a6e9-df8d-47d2-832a-0d2126ce760e
 md"""
 A velocidade, $$n$$, é dependente do fluxo magnético, $$kϕ_0$$, que por sua vez depende da corrente de excitação, $$I_d$$ e da característica magnética da máquina.\
-Assim, a imagem do fluxo magnético presente na máquina é dada pela a força contra-electromotriz de vazio do motor, $$E_0^{'}$$:
+Assim, a imagem do fluxo magnético presente na máquina é dada pela a força contraeletromotriz (FCEM) do motor, $$E_0^{'}$$:
 """
 
 # ╔═╡ 0ff562ff-7af2-4749-87f5-8766cb695893
 md"""
 $$E_0^{'}=E^{'}+ΔE$$
-Sendo a  a força contra-electromotriz efectiva, $$E^{'}$$, dada por:\
+Sendo a FCEM efetiva, $$E^{'}$$, dada por:\
 """
 
 # ╔═╡ cf0f089a-1901-4ad1-8fe9-b9028679b109
@@ -140,7 +142,7 @@ $$E^{'}=U-R_iI_i$$
 """
 
 # ╔═╡ de954f1d-a3ac-4830-acd0-85e64afdf0cd
-# forma computacional de consultar a curva de ΔE(Ii), por interpolação dos dados através do Pkg Dierckx.jl
+# forma computacional de consultar a curva de ΔE(Ii), por interpolação
 begin
 	ΔE_int = Spline1D(Iᵢ, ΔE)  
 	ΔEₙ = ΔE_int(Iₙ)
@@ -154,14 +156,14 @@ O valor de $$ΔE$$ para $$I_n$$, consultando a sua curva de q.d.t é: $$ΔE=$$ $
 
 
 # ╔═╡ 8f5b0bd5-7a65-4ba3-bdd1-7cc3128fa8d8
-E = Uₙ - Rᵢ * Iₙ;
+Eʼ = Uₙ - Rᵢ * Iₙ;
 
 # ╔═╡ 7d6a01a4-4876-42dc-ab66-f7f736d41a32
-E₀ₙ = E + ΔEₙ;
+Eʼ₀ₙ = Eʼ + ΔEₙ;
 
 # ╔═╡ 0a35c6dc-0967-4f8a-9fff-904f9062eeab
 md"""
-Calculando as f.c.e.m., obtêm-se $$E^{'}=$$ $(E)V e $$E_0^{'}=$$ $(E₀ₙ)V.
+Calculando as FCEM, obtêm-se $$E^{'}=$$ $(Eʼ)V e $$E_0^{'}=$$ $(Eʼ₀ₙ)V.
 """
 
 # ╔═╡ 9d82a20f-3a14-4796-88e9-e27720632bbd
@@ -172,12 +174,14 @@ Note que tomou-se a corrente do rotor aproximadamente igual à corrente absorvid
 
 # ╔═╡ 04b517f9-ed9f-4a5d-929b-82b10de843b9
 md"""
-A característica magnética foi obtida à mesma velocidade inscrita na chapa de características da máquina, $$n_n$$, por conseguinte, obtém-se dela directamente a corrente de campo, $$I_d$$.
+A característica magnética foi obtida à mesma velocidade inscrita na chapa de características da máquina, $$n_n$$, por conseguinte, obtém-se dela diretamente a corrente de campo, $$I_d$$, pois:
+ $E_0^{'}{(1200\rm{rpm})}=E_0(1200\rm{rpm})$ para as mesmas correntes de campo.
 """
 
 # ╔═╡ cfc7844e-3974-46ef-a53a-ee6a1a85d7f3
-# forma computacional de consultar a característica magnética, por interpolação dos dados através do Pkg Dierckx.jl
 begin
+	E₀ₙ = Eʼ₀ₙ
+	# forma computacional de consultar a característica magnética, por interpolação
 	Id_int = Spline1D(E₀, Iex)  
 	Id = Id_int(E₀ₙ)
 	Id = round(Id, digits=2)
@@ -185,7 +189,7 @@ end;
 
 # ╔═╡ 71356175-ffe4-4c3a-a895-8a4be8713a44
 md"""
-Consultando a característica magnética a 1200rpm, verifica-se para $$E₀=$$ $(E₀ₙ)V $$\Rightarrow$$ $$I_d=$$ $(Id)A.
+Consultando a característica magnética a 1200rpm, verifica-se para $$E_0=$$ $(E₀ₙ)V $$\Rightarrow$$ $$I_d=$$ $(Id)A.
 """
 
 # ╔═╡ d85a5505-1ab5-43d0-97ad-a0cb4a220c06
@@ -211,7 +215,7 @@ Calculando, obtém-se $$R_c=$$ $(Rc)Ω
 
 # ╔═╡ 4bac08e5-7a7a-496f-8d67-aa2bc4b10236
 md"""
-> Poderá então observar as diferenças de cálculo relativas à presença de q.d.t. devido à reacção magnética do induzido, ou seja, uma máquina com pólos auxiliares (caso mais frequente), conduz a $$ΔE \neq 0$$V, variável em função da corrente do induzido. No caso de uma máquina com pólos auxiliares e enrolamentos de compensação, a reacção magnética do induzido estará compensada e assim tem-se:
+> Poderá então observar as diferenças de cálculo relativas à presença de q.d.t. devido à reação magnética do induzido, ou seja, uma máquina com pólos auxiliares (caso mais frequente), conduz a $$ΔE \neq 0$$V, variável em função da corrente do induzido. No caso de uma máquina com pólos auxiliares e enrolamentos de compensação, a reação magnética do induzido estará compensada e assim tem-se:
 """
 
 # ╔═╡ 5abe64cf-9291-48d6-bf60-7335551ee791
@@ -241,8 +245,8 @@ end;
 
 # ╔═╡ 4652d9e4-e2c6-47c4-93d1-1e360ffb7e57
 md"""
-Tomando o valor calculado de $$R_c=$$ $(Rc)Ω, resulta $$I_d=$$ $(Id)A, o que permite calcular o fluxo magnético da máquina em vazio, $$kϕ₀$$, que no motor de excitação derivação permanece constante.  
-Assim, $$kϕ₀=$$ $(kϕ₀₁)V/rpm
+Tomando o valor calculado de $$R_c=$$ $(Rc)Ω, resulta $$I_d=$$ $(Id)A, o que permite calcular o fluxo magnético da máquina em vazio, $$kϕ_0$$, que no motor de excitação derivação, permanece constante.  
+Assim, $$kϕ_0=$$ $(kϕ₀₁)V/rpm
 """
 
 # ╔═╡ 4629c049-8882-4823-bdea-93e3d70cc901
@@ -277,9 +281,9 @@ $$T_d=\frac{E^{'}}{ω}I_i\:\:\:;\:\:\:ω=\frac{2πn}{60}$$ com $$ω$$ em rad/s.
 # ╔═╡ 4da7f391-e3bf-4e12-aa6b-a7ef5e45d3b9
 # Característica de binário:
 begin
-	E₁ = Uₙ .- Rᵢ * Ii
+	Eʼ₁ = Uₙ .- Rᵢ * Ii
 	ω₁ = 2π .* n₁ / 60
-	Td₁ = (E₁ ./ ω₁) .* Ii
+	Td₁ = (Eʼ₁ ./ ω₁) .* Ii
 end;
 
 # ╔═╡ df3609ef-80f2-464a-b522-f289ea9344b4
@@ -319,7 +323,7 @@ Assim, a característica de velocidade para o motor de excitação composta em l
 
 # ╔═╡ facb1900-1093-46c7-97b2-187b67e21294
 md"""
-$$n=\frac{U-(R_i+R_s)I_i+\Delta E}{k\phi_t}$$ com $$k\phi_t=k(\phi_d \pm 	\phi_s)$$, em V/rpm obtido através da característica magnética da máquina.
+$$n=\frac{U-(R_i+R_s)I_i+\Delta E}{k\phi_t}$$ com $$k\phi_t=k(\phi_d \pm 	\phi_s)$$, em V/rpm, obtido através da característica magnética da máquina.
 """
 
 # ╔═╡ 6aae7842-4889-4be6-bd1d-eab44c610af8
@@ -417,7 +421,7 @@ end
 # ╔═╡ 60db00b7-c78b-4c26-9530-c62fcfd1bfd2
 md"""
 # e) MI: variação $$n=f(I)$$ 💻
-**Considere o motor com excitação independente (MI), Uexc = 240V , com o reóstato de campo calculado na alínea a). Explicite a variação da característica de velocidade nas situações:**
+**Considere o motor com excitação independente (MI), $U_{exc} = 240\rm{V}$, com o reóstato de campo calculado na alínea a). Explicite a variação da característica de velocidade nas situações:**
 1. **aumento de tensão do induzido;**
 2. **diminuição do reóstato de campo;**
 3. **aumento da resistência adicional.**
@@ -429,17 +433,16 @@ md"""
 """
 
 # ╔═╡ 36295cf6-19ba-4240-9806-745ec0bfdccd
-begin
-	H1=("Tensão do induzido, Ui", @bind Ui PlutoUI.Slider(150:1:350, default=250.0, show_value=true))
-	H2=("Reostato de campo, Rc1", @bind Rc1 PlutoUI.Slider(0*Rc:0.01*Rc:2.5*Rc, default= Rc, show_value=true))
-	H3=("Resistência adicional, Rad", @bind Rad PlutoUI.Slider(0:0.1:1.5, default=0.0, show_value=true))
-	H1, H2, H3
-end
+md"""
+Tensão do induzido, $$U_i$$: $(@bind Ui PlutoUI.Slider(150:1:350, default=250.0, show_value=true)) \
+Reostato de campo, $$R_c$$: $(@bind Rc1 PlutoUI.Slider(0*Rc:0.01*Rc:2.5*Rc, default= Rc, show_value=true)) \
+Resistência adicional, $$R_{ad}$$: $(@bind Rad PlutoUI.Slider(0:0.1:1.5, default=0.0, show_value=true))
+"""
 
 # ╔═╡ e648310c-8172-4cf0-ab72-f40229ba2577
 begin
 	Uexc = 240
-	Iex₅ = Uexc /(Rc1 + Rd)
+	Iex₅ = Uexc / (Rc1 + Rd)
 	E₀₅ = E₀_int1(Iex₅) 				#fem para excitação separada
 	kϕ₀₅ = E₀₅ / nmag
 	ΔEᵢᵢ = ΔE_int(I)
