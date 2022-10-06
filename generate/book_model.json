@@ -44,14 +44,14 @@
         "title": "Máquina elétrica síncrona trifásica",
         "contents": [
             {
-                "name": "[TP] Alternador em regime isolado, exercício 1",
+                "name": "Alternador em regime isolado, Ex.1",
                 "notebook_path": "notebooks/AC/me2-tp-maq-ac-ex1.jl",
                 "video_id": "",
                 "preview_image_url": ""
             },
 	    {
                 "name": "[TP] Alternador, curvas características, exercício 2",
-                "notebook_path": "notebooks/AC/me2-tp-maq-ac-ex2.jl",
+                "notebook_path": "notebooks/AC/StandAloneSynGen.jl",
                 "video_id": "",
                 "preview_image_url": ""
             },
