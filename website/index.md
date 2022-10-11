@@ -3,9 +3,9 @@
 
 Este *website* disponibiliza a leitura e o acesso a uma coleção de *notebooks* na forma de notas de aula e cálculos de engenharia, de apoio à unidade curricular de Máquinas Elétricas II, lecionada no curso de Licenciatura em Engenharia Eletrotécnica do Instituto Superior de Engenharia de Lisboa (ISEL).
 
-Os *notebooks* são documentos computacionais que utilizam o navegador *web*, combinando simultaneamente, o desenvolvimento e os resultados computacionais, com texto, expressões matemáticas, tabelas, imagens, etc., de uma forma interligada e interactiva com o utilizador.
+Os *notebooks* são documentos computacionais que utilizam o navegador *web*, combinando simultaneamente, o desenvolvimento e os resultados computacionais, com texto, expressões matemáticas, tabelas, imagens, etc., de uma forma interligada e interativa com o utilizador.
 
-Estes *notebooks* são desenvolvidos utilizando o **Pluto.jl** que é um ambiente de programação simples e reativo para a linguagem de computação científica Julia.
+Estes *notebooks* são desenvolvidos utilizando o **Pluto.jl** que é um ambiente de programação simples e reativo para a linguagem de computação científica `Julia`.
 
 
 ## Autor
@@ -39,7 +39,7 @@ Para citar o conteúdo deste *website* ou os *notebooks*, utilize o seguinte tex
 
 O material publicado neste *website* e respetivo repositório do GitHub, está licenciado da seguinte forma:
 
-- As parcelas de código Julia dos *notebooks* estão sob os termos da licença: [MIT License](https://tldrlegal.com/license/mit-license)
+- As parcelas de código `Julia` dos *notebooks* estão sob os termos da licença: [MIT License](https://tldrlegal.com/license/mit-license)
 - Os textos e outros conteúdos dos *notebooks* estão sob os termos da licença: [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/deed.pt) (CC BY-SA 4.0).
 
 
