@@ -56,8 +56,8 @@
                 "preview_image_url": ""
             },
 	    {
-                "name": "[T] Curvas de Mordey",
-                "notebook_path": "notebooks/AC/me2-t-maq-ac-curvasV.jl",
+                "name": "Curvas de Mordey",
+                "notebook_path": "notebooks/AC/Vcurves.jl",
                 "video_id": "",
                 "preview_image_url": ""
             },
