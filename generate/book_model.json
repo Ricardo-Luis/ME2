@@ -62,8 +62,8 @@
                 "preview_image_url": ""
             },
 	    {
-                "name": "[TP] Motor polos salientes, exercício 8",
-                "notebook_path": "notebooks/AC/me2-tp-maq-ac-ex8.jl",
+                "name": "Motor polos salientes, Ex.8",
+                "notebook_path": "notebooks/AC/SalientPoleSyncMotor.jl",
                 "video_id": "",
                 "preview_image_url": ""
             },
