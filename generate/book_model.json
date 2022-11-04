@@ -69,7 +69,7 @@
             },
 	    {
                 "name": "Critério da igualdade das áreas, Ex.11",
-                "notebook_path": "notebooks/AC/EqualAreas.jl",
+                "notebook_path": "notebooks/AC/EqualArea.jl",
                 "video_id": "",
                 "preview_image_url": ""
             }
