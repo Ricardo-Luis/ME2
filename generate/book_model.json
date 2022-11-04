@@ -68,8 +68,8 @@
                 "preview_image_url": ""
             },
 	    {
-                "name": "[TP] Método das áreas, exercício 11",
-                "notebook_path": "notebooks/AC/me2-tp-maq-ac-ex11.jl",
+                "name": "Critério da igualdade das áreas, Ex.11",
+                "notebook_path": "notebooks/AC/EqualAreas.jl",
                 "video_id": "",
                 "preview_image_url": ""
             }
