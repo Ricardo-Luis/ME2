@@ -37,6 +37,12 @@
                 "notebook_path": "notebooks/DC/SeriesMotor.jl",
                 "video_id": "",
                 "preview_image_url": ""
+            },
+	    {
+                "name": "Resolução de teste (03/nov/2022)",
+                "notebook_path": "notebooks/DC/Test.DCmachines.jl",
+                "video_id": "",
+                "preview_image_url": ""
             }
         ]
     },
