@@ -78,6 +78,12 @@
                 "notebook_path": "notebooks/AC/EqualArea.jl",
                 "video_id": "",
                 "preview_image_url": ""
+            },
+		    {
+                "name": "Resolução de teste (27/jan/2023)",
+                "notebook_path": "notebooks/DC/Test.ACmachines.jl",
+                "video_id": "",
+                "preview_image_url": ""
             }
         ]
     }
