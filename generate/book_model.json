@@ -81,7 +81,7 @@
             },
 		    {
                 "name": "Resolução de teste (27/jan/2023)",
-                "notebook_path": "notebooks/DC/Test.ACmachines.jl",
+                "notebook_path": "notebooks/AC/Test.ACmachines.jl",
                 "video_id": "",
                 "preview_image_url": ""
             }
